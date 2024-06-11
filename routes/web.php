@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [UserController::class, 'view']);
+Route::get('/login', [UserController::class, 'view'])->name('login');
 
-Route::get('/', function () {
-    return view('index');
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    });
 });
 
 // Route::get('/page-lain', function () {
