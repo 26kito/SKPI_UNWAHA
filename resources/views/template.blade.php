@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SKPI UNWAHA | @yield('page-title')</title>
+    <title>AdminLTE 3 | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -51,10 +51,10 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <div class="image">
-                        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image" style="width: 40px">
+                    <div class="image" style="display: flex; align-items: center;">
+                        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image" style="width: 30px; margin-right: 10px;">
+                        <p style="margin: 0;">{{ 'Hi, nama orang' }}</p>
                     </div>
-                    <p>{{ 'Hi, nama orang' }}</p>
                 </li>
             </ul>
         </nav>
@@ -125,7 +125,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <!-- <h1 class="m-0">Dashboard</h1> -->
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
