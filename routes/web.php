@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [UserController::class, 'view']);
+Route::get('/login', [UserController::class, 'loginView'])->name('login');
+Route::post('/action-login', [UserController::class, 'login'])->name('action-login');
+Route::get('/register', [UserController::class, 'registerView'])->name('register');
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
-
-Route::get('/input', function () {
-    return view('input');
-})->name('input');
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    });
+});
 
 // Route::get('/page-lain', function () {
 //     return view('lain');
