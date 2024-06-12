@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in (v2)</title>
+  <title>AdminLTE 3 | Log in</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -24,14 +24,15 @@
     <div class="card-body">
       <p class="login-box-msg">Silahkan Login</p>
 
-      <form action="{{  }}" method="POST">
+      <form action="{{ route('action-login') }}" method="post">
+        @csrf
         <div class="input-group mb-3">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
-          <input type="text" class="form-control" placeholder="Username">
+          <input type="text" class="form-control" name="username" placeholder="Username" required>
         </div>
         <div class="input-group mb-3">
           <div class="input-group-append">
@@ -39,7 +40,7 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Password" required>
         </div>
         <div class="row">
           <div class="col-6">
@@ -47,7 +48,7 @@
           </div>
           <!-- /.col -->
           <div class="col-6">
-            <button type="submit" class="btn btn-primary btn-block">Registrasi</button>
+            <a href="{{ route('register') }}" role="button" class="btn btn-primary btn-block">Registrasi</a>
           </div>
           <!-- /.col -->
         </div>
