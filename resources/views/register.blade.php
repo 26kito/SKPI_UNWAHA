@@ -31,7 +31,9 @@
     <div class="card" style="width: 1200px">
       <h5 class="card-header">Silahkan melengkapi form berikut!</h5>
       <div class="card-body">
-        <form>
+        <form action="{{ route('action-register') }}" method="POST">
+          @csrf
+
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="inputEmail4">Nama Prodi</label>
@@ -93,7 +95,8 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="fotoMahasiswa">Foto Mahasiswa</label>
-              <input type="file" class="form-control" id="fotoMahasiswa">
+              <input type="file" name="fotoMahasiswa" class="form-control" id="fotoMahasiswa" accept="image/*">
+              <img src="#" id="previewFotoMahasiswa" class="d-none">
             </div>
           </div>
           <br>
@@ -104,8 +107,29 @@
     </div>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
     integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
+  </script>
+  <script>
+    function previewImage(input) {
+      console.log(input)
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+          $('#previewFotoMahasiswa').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#fotoMahasiswa").change(function() {
+      $(this).removeClass('d-none')
+      previewImage(this)
+    });
   </script>
 </body>
 
