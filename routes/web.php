@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [UserController::class, 'view'])->name('login');
+Route::get('/login', [UserController::class, 'loginView'])->name('login');
+Route::post('/action-login', [UserController::class, 'login'])->name('action-login');
+Route::get('/register', [UserController::class, 'registerView'])->name('register');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
