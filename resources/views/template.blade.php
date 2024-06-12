@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SKPI UNWAHA | @yield('page-title')</title>
+    <title>AdminLTE 3 | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -76,7 +76,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="{{ route('index') }}" class="nav-link active">
+                            <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
@@ -85,7 +85,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('input') }}" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     Input Draft SKPI
@@ -104,9 +104,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <!-- <i class="nav-icon fas fa-home"></i> -->
-                                <ion-icon name="log-out-outline"></ion-icon>
-                                <i class="nav-icon fas fa-right-from-bracket"></i>
+                                <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Logout
                                     <i class="right fas"></i>
