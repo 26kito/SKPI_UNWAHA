@@ -51,10 +51,10 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <div class="image">
-                        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image" style="width: 40px">
+                    <div class="image" style="display: flex; align-items: center;">
+                        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image" style="width: 30px; margin-right: 10px;">
+                        <p style="margin: 0;">{{ 'Hi, nama orang' }}</p>
                     </div>
-                    <p>{{ 'Hi, nama orang' }}</p>
                 </li>
             </ul>
         </nav>
@@ -76,7 +76,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{ route('index') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
@@ -85,7 +85,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('input') }}" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     Input Draft SKPI
@@ -104,7 +104,9 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-home"></i>
+                                <!-- <i class="nav-icon fas fa-home"></i> -->
+                                <ion-icon name="log-out-outline"></ion-icon>
+                                <i class="nav-icon fas fa-right-from-bracket"></i>
                                 <p>
                                     Logout
                                     <i class="right fas"></i>
@@ -125,7 +127,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <!-- <h1 class="m-0">Dashboard</h1> -->
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->

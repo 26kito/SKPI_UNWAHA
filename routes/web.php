@@ -18,7 +18,11 @@ Route::get('/login', [UserController::class, 'view']);
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
+
+Route::get('/input', function () {
+    return view('input');
+})->name('input');
 
 // Route::get('/page-lain', function () {
 //     return view('lain');
