@@ -114,7 +114,6 @@
   </script>
   <script>
     function previewImage(input) {
-      console.log(input)
       if (input.files && input.files[0]) {
         var reader = new FileReader();
         
@@ -127,7 +126,7 @@
     }
 
     $("#fotoMahasiswa").change(function() {
-      $(this).removeClass('d-none')
+      $('#previewFotoMahasiswa').removeClass('d-none')
       previewImage(this)
     });
   </script>
