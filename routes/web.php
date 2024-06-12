@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [UserController::class, 'loginView'])->name('login');
 Route::post('/action-login', [UserController::class, 'login'])->name('action-login');
 Route::get('/register', [UserController::class, 'registerView'])->name('register');
+Route::post('/register', [UserController::class, 'register'])->name('action-register');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('custom-login')->group(function () {
     Route::get('/', function () {
         return view('index');
-    });
+    })->name('home');
 });
 
 // Route::get('/page-lain', function () {
