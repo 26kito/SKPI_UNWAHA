@@ -23,6 +23,8 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/', function () {
         return view('index');
     })->name('home');
+
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
 
 // Route::get('/page-lain', function () {
