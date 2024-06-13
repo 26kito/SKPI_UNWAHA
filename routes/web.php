@@ -28,4 +28,6 @@ Route::middleware('custom-login')->group(function () {
 
     Route::get('/input/skpi', [SkpiController::class, 'view'])->name('view-input-skpi');
     Route::post('/input/skpi', [SkpiController::class, 'insert'])->name('insert-input-skpi');
+    Route::get('/data/skpi', [SkpiController::class, 'getSKPI']);
+    Route::get('/download/portofolio/skpi/{fileName}', [SkpiController::class, 'downloadFile']);
 });

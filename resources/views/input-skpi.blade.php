@@ -79,7 +79,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <table id="myTable" class="display">
+        <table id="skpiTable" class="display">
             <thead>
                 <tr>
                     <th class="text-center">Kategori Portofolio</th>
@@ -90,19 +90,10 @@
                     <th>Dokumen</th>
                     <th>Status</th>
                     <th>Action</th>
+                    <th style="display: none"></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                    <td>Silahkan klik link berikut: (link belum tersedia)</td>
-                </tr>
+            <tbody id="skpiTableContent">
             </tbody>
         </table>
     </div>
@@ -116,11 +107,14 @@
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $(document).ready( function () {
-        new DataTable('#myTable');
+    
+    $(document).ready(function () {
+
+        new DataTable('#skpiTable');
 
         let message = "{{ session('message') }}"
         let status = "<?= (session()->has('status') && session('status') === 'ok') ? 'success' : 'error' ?>"
+        let icon = "{{ asset('file.png') }}"
 
         if (message && message != ' ') {
             Swal.fire({
@@ -129,5 +123,39 @@
                 text: message,
             });
         }
+
+        $.ajax({
+            type: 'GET',
+            url: '/data/skpi',
+            success: (result) => {
+                let table = ''
+
+                result.forEach((d) => {
+                    table += `
+                        <tr>
+                            <td>${d.KATEGORI_PORTOFOLIO}</td>
+                            <td>${d.NAMA_PORTOFOLIO}</td>
+                            <td>${d.IS_SESUAI}</td>
+                            <td>${d.TANGGAL_PORTOFOLIO}</td>
+                            <td>${d.NO_DOKUMEN}</td>
+                            <td>
+                                <a href="/download/portofolio/skpi/${d.NAMA_FILE}" onclick="return confirm('Download file ini?')">
+                                    <img src="${icon}" style="max-width: 30px">
+                                </a>
+                            </td>
+                            <td class="fw-bolder ${d.status_text}">${d.STATUS}</td>
+                            <td class="${(d.STATUS_ID != 1) ? 'd-none' : ''}" style="display: flex; align-items: center; gap: 10px; height: 80px">
+                                <a href="#" class="btn bg-warning"><i class="fa fa-pen"></i></a>
+                                <a href="#" class="btn bg-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    `
+
+                    return table
+                })
+
+                $('#skpiTableContent').html(table)
+            }
+        })
     })
 </script>
