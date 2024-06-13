@@ -40,7 +40,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{ route('home') }}" class="nav-link {{ request()->route()->getName() == 'home' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
@@ -126,7 +126,7 @@
                         @endif
                         @if (Helper::authUser()->ROLE == 'MAHASISWA')
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('view-input-skpi') }}" class="nav-link {{ request()->route()->getName() == 'view-input-skpi' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     Input Draft SKPI
