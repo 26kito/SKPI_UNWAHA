@@ -27,8 +27,16 @@ class UserController extends Controller
 
         $encryptedUserID = encrypt($user->ID);
         Session::put('isLogin', $encryptedUserID);
+        Session::put('user', $user);
 
         return redirect()->route('home');
+    }
+
+    public function logout(Request $request)
+    {
+        if (Session::has('isLogin')) {
+            Session::forget('isLogin');
+        }
     }
 
     public function registerView()
