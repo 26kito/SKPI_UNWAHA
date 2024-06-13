@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SkpiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/', function () {
         return view('index');
     })->name('home');
+
+    Route::get('/input/skpi', [SkpiController::class, 'view'])->name('view-input-skpi');
 
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
