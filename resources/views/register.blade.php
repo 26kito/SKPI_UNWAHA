@@ -31,7 +31,7 @@
     <div class="card" style="width: 1200px">
       <h5 class="card-header">Silahkan melengkapi form berikut!</h5>
       <div class="card-body">
-        <form action="{{ route('action-register') }}" method="POST">
+        <form action="{{ route('action-register') }}" method="POST" enctype="multipart/form-data">
           @csrf
 
           <div class="form-row">
@@ -39,8 +39,10 @@
               <label for="prodi">Nama Prodi</label>
               <select class="form-control" name="prodi" id="">
                 <option value="NULL" selected disabled>Pilih prodi</option>
-                <option value="sistem_informasi" {{ old('prodi') == 'sistem_informasi' ? 'selected' : '' }}>Sistem Informasi</option>
-                <option value="teknik_informatika" {{ old('prodi') == 'teknik_informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+                <option value="sistem_informasi" {{ old('prodi')=='sistem_informasi' ? 'selected' : '' }}>Sistem
+                  Informasi</option>
+                <option value="teknik_informatika" {{ old('prodi')=='teknik_informatika' ? 'selected' : '' }}>Teknik
+                  Informatika</option>
               </select>
 
               @error('prodi')
@@ -49,7 +51,8 @@
             </div>
             <div class="form-group col-md-4">
               <label for="namaMahasiswa">Nama Mahasiswa</label>
-              <input type="text" name="namaMhs" class="form-control" id="namaMahasiswa" placeholder="Nama Mahasiswa" value="{{ old('namaMhs') }}">
+              <input type="text" name="namaMhs" class="form-control" id="namaMahasiswa" placeholder="Nama Mahasiswa"
+                value="{{ old('namaMhs') }}">
 
               @error('namaMhs')
               <div class="text-danger">{{ $message }}</div>
@@ -68,7 +71,8 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="noKTP">No. KTP</label>
-              <input type="text" name="nik" class="form-control" id="noKTP" placeholder="No. KTP" value="{{ old('nik') }}">
+              <input type="text" name="nik" class="form-control" id="noKTP" placeholder="No. KTP"
+                value="{{ old('nik') }}">
 
               @error('nik')
               <div class="text-danger">{{ $message }}</div>
@@ -88,7 +92,8 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="tempatLahir">Tempat Lahir</label>
-              <input type="text" name="tempatLahir" class="form-control" id="tempatLahir" placeholder="Tempat Lahir" value="{{ old('tempatLahir') }}">
+              <input type="text" name="tempatLahir" class="form-control" id="tempatLahir" placeholder="Tempat Lahir"
+                value="{{ old('tempatLahir') }}">
 
               @error('tempatLahir')
               <div class="text-danger">{{ $message }}</div>
@@ -96,7 +101,7 @@
             </div>
             <div class="form-group col-md-4">
               <label for="tglLahir">Tanggal Lahir</label>
-              <input type="date" name="tglLahir" class="form-control" id="tglLahir"  value="{{ old('tglLahir') }}">
+              <input type="date" name="tglLahir" class="form-control" id="tglLahir" value="{{ old('tglLahir') }}">
 
               @error('tglLahir')
               <div class="text-danger">{{ $message }}</div>
@@ -104,7 +109,7 @@
             </div>
             <div class="form-group col-md-4">
               <label for="tglMasuk">Tanggal Masuk</label>
-              <input type="date" name="tglMasuk" class="form-control" id="tglMasuk"  value="{{ old('tglMasuk') }}">
+              <input type="date" name="tglMasuk" class="form-control" id="tglMasuk" value="{{ old('tglMasuk') }}">
 
               @error('tglMasuk')
               <div class="text-danger">{{ $message }}</div>
@@ -115,7 +120,8 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="gelarMahasiswa">Gelar Mahasiswa</label>
-              <input type="text" name="gelarMahasiswa" class="form-control" id="gelarMahasiswa" placeholder="Gelar Mahasiswa" value="{{ old('gelarMahasiswa') }}">
+              <input type="text" name="gelarMahasiswa" class="form-control" id="gelarMahasiswa"
+                placeholder="Gelar Mahasiswa" value="{{ old('gelarMahasiswa') }}">
 
               @error('gelarMahasiswa')
               <div class="text-danger">{{ $message }}</div>
@@ -123,7 +129,8 @@
             </div>
             <div class="form-group col-md-4">
               <label for="email">Email</label>
-              <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{ old('email') }}">
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                value="{{ old('email') }}">
 
               @error('email')
               <div class="text-danger">{{ $message }}</div>
@@ -131,7 +138,8 @@
             </div>
             <div class="form-group col-md-4">
               <label for="password">Password</label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="{{ old('password') }}">
+              <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                value="{{ old('password') }}">
 
               @error('password')
               <div class="text-danger">{{ $message }}</div>
@@ -144,8 +152,10 @@
               <label for="fotoMahasiswa">Foto Mahasiswa</label>
               <input type="file" name="fotoMahasiswa" class="form-control" id="fotoMahasiswa" accept="image/*">
               <br>
-              <div class="card d-none" id="cardPreviewFotoMahasiswa" style="max-width: 300px; max-height: 300px">
-                <img src="#" id="previewFotoMahasiswa" style="object-fit: cover">
+              {{-- <div class="card d-none" id="cardPreviewFotoMahasiswa" style="max-width: 300px; max-height: 300px">
+                <img src="#" id="previewFotoMahasiswa" style="object-fit: cover; width: 100%; height: 100%">
+              </div> --}}
+              <div class="card d-none" id="cardPreviewFotoMahasiswa" style="background-size: cover; background-repeat: no-repeat; background-position: center center; width: 250px; height: 250px">
               </div>
             </div>
           </div>
@@ -164,34 +174,37 @@
     integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
   </script>
   <script>
-    function previewImage(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function (e) {
-          $('#previewFotoMahasiswa').attr('src', e.target.result);
+    $(document).ready(function () {
+      function previewImage(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          
+          reader.onload = function (e) {
+            // $('#previewFotoMahasiswa').attr('src', e.target.result);
+            $('#cardPreviewFotoMahasiswa').css('background-image', `url(${e.target.result})`);
+          }
+          
+          reader.readAsDataURL(input.files[0]);
         }
-        
-        reader.readAsDataURL(input.files[0]);
       }
-    }
-
-    $("#fotoMahasiswa").change(function() {
-      if (this.files[0].size > 3145728) { // if image size greater than 3mb
-        $(this).val(null)
-        $('#cardPreviewFotoMahasiswa').remove()
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Ukuran foto yang dipilih terlalu besar!",
-        });
-
-        return
-      }
-
-      $('#cardPreviewFotoMahasiswa').removeClass('d-none')
-      previewImage(this)
-    });
+  
+      $("#fotoMahasiswa").change(function() {
+        if (this.files[0].size > 3145728) { // if image size greater than 3mb
+          $(this).val(null)
+          $('#cardPreviewFotoMahasiswa').remove()
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Ukuran foto yang dipilih terlalu besar!",
+          });
+  
+          return
+        }
+  
+        $('#cardPreviewFotoMahasiswa').removeClass('d-none')
+        previewImage(this)
+      });
+    })
   </script>
 </body>
 
