@@ -19,6 +19,7 @@ Route::get('/login', [UserController::class, 'loginView'])->name('login');
 Route::post('/action-login', [UserController::class, 'login'])->name('action-login');
 Route::get('/register', [UserController::class, 'registerView'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('action-register');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('custom-login')->group(function () {
     Route::get('/', function () {
@@ -26,10 +27,5 @@ Route::middleware('custom-login')->group(function () {
     })->name('home');
 
     Route::get('/input/skpi', [SkpiController::class, 'view'])->name('view-input-skpi');
-
-    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::post('/input/skpi', [SkpiController::class, 'insert'])->name('insert-input-skpi');
 });
-
-// Route::get('/page-lain', function () {
-//     return view('lain');
-// })->name('lain');

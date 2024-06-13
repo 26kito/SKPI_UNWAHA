@@ -6,29 +6,29 @@
 <div class="card">
     <h5 class="card-header">Silahkan melengkapi form berikut!</h5>
     <div class="card-body">
-        <form action="#" method="POST">
+        <form action="{{ route('insert-input-skpi') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="prodi">Kategori Portofolio</label>
-                    <select class="form-control" name="prodi" id="">
+                    <label for="kategoriPorto">Kategori Portofolio</label>
+                    <select class="form-control" name="kategoriPorto" id="kategoriPorto">
                         <option value="NULL" selected disabled>Pilih kategori portofolio</option>
                         @foreach ($data as $key => $row)
                             <option value="{{ $row->ID }}">{{ $row->KATEGORI }}</option>
                         @endforeach
                     </select>
 
-                    @error('prodi')
+                    @error('kategoriPorto')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="namaMahasiswa">Nama Portofolio</label>
-                    <input type="text" name="namaMhs" class="form-control" id="namaMahasiswa"
-                        placeholder="Nama Portofolio" value="{{ old('namaMhs') }}">
+                    <label for="namaPortofolio">Nama Portofolio</label>
+                    <input type="text" name="namaPorto" class="form-control" id="namaPortofolio"
+                        placeholder="Nama Portofolio" value="{{ old('namaPorto') }}">
 
-                    @error('namaMhs')
+                    @error('namaPorto')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -36,20 +36,20 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="prodi">Kesesuaian Portofolio</label>
-                    <select class="form-control" name="prodi" id="">
+                    <label for="kesesuaianPorto">Kesesuaian Portofolio</label>
+                    <select class="form-control" name="kesesuaianPorto" id="kesesuaianPorto">
                         <option value="NULL" selected disabled>Pilih Kesesuaian portofolio</option>
                         <option value="linearitas">Linearitas</option>
                         <option value="non-linearitas">Non-Linearitas</option>
                     </select>
 
-                    @error('prodi')
+                    @error('kesesuaianPorto')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="tglPorto">Tanggal Portofolio</label>
-                    <input type="date" name="tglPorto" class="form-control" id="tglPorto" value="{{ old('tglPorto') }}">
+                    <input type="date" name="tglPorto" class="form-control" id="tglPorto" value="{{ old('tglPorto') }}" onclick="'showPicker' in this && this.showPicker()"/>
 
                     @error('tglPorto')
                     <div class="text-danger">{{ $message }}</div>
@@ -58,16 +58,16 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="tempatLahir">No. Dokumen Portofolio</label>
-                    <input type="text" name="tempatLahir" class="form-control" id="tempatLahir"
-                        placeholder="No. Dokumen Portofolio" value="{{ old('tempatLahir') }}">
+                <div class="form-group col-md-3">
+                    <label for="noDokumenPorto">No. Dokumen Portofolio</label>
+                    <input type="text" name="noDokumenPorto" class="form-control" id="noDokumenPorto"
+                        placeholder="No. Dokumen Portofolio" value="{{ old('noDokumenPorto') }}">
 
-                    @error('tempatLahir')
+                    @error('noDokumenPorto')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="fileDokumen">Upload Dokumen</label>
                     <input type="file" name="fileDokumen" class="form-control" id="fileDokumen" accept=".pdf">
                 </div>
@@ -114,8 +114,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready( function () {
         new DataTable('#myTable');
+
+        let message = "{{ session('message') }}"
+        let status = "<?= (session()->has('status') && session('status') === 'ok') ? 'success' : 'error' ?>"
+
+        if (message && message != ' ') {
+            Swal.fire({
+                icon: status,
+                title: status.toUpperCase(),
+                text: message,
+            });
+        }
     })
 </script>
