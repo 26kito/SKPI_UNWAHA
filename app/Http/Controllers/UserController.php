@@ -75,7 +75,7 @@ class UserController extends Controller
                 $password = Hash::make($request->password);
 
                 $file = $request->file('fotoMahasiswa');
-                $fileName = $request->hasFile('fotoMahasiswa') ? $file->getClientOriginalName() : null;
+                $fileName = $nim . '_' . strtoupper($nama) . '.' . $file->getClientOriginalExtension();
 
                 if (!$file) {
                     throw new Exception('Silahkan upload foto mahasiswa terlebih dahulu!');
@@ -117,11 +117,11 @@ class UserController extends Controller
         $input->validate(
             [
                 'prodi' => 'required',
-                'namaMhs' => 'required',
-                'nim' => ['required', Rule::unique('mahasiswa', 'NIM')->ignore($input->nim), Rule::unique('user', 'USERNAME')->ignore($input->nim)],
-                'nik' => 'required',
-                'namaIbuKandung' => 'required',
-                'email' => ['required', Rule::unique('mahasiswa', 'EMAIL')->ignore($input->email)],
+                'namaMhs' => ['required', 'regex:/^[a-zA-Z\s]*$/'],
+                'nim' => ['required', 'numeric', Rule::unique('mahasiswa', 'NIM')->ignore($input->nim), Rule::unique('user', 'USERNAME')->ignore($input->nim)],
+                'nik' => ['required', 'numeric', Rule::unique('mahasiswa', 'NIK')->ignore($input->nik)],
+                'namaIbuKandung' => ['required', 'regex:/^[a-zA-Z\s]*$/'],
+                'email' => ['required', 'email:rfc,dns', Rule::unique('mahasiswa', 'EMAIL')->ignore($input->email)],
                 'password' => 'required',
                 'fotoMahasiswa' => [
                     'image', File::image()
@@ -131,9 +131,15 @@ class UserController extends Controller
             [
                 'prodi.required' => 'Prodi belum diisi!',
                 'namaMhs.required' => 'Nama mahasiswa belum diisi!',
+                'namaMhs.regex' => 'Nama mahasiswa hanya bisa diisi dengan huruf!',
                 'nim.required' => 'NIM mahasiswa belum diisi!',
+                'nim.numeric' => 'Format NIM salah!',
                 'nik.required' => 'Nomor KTP belum diisi!',
+                'nik.numeric' => 'Format No. KTP salah!',
                 'namaIbuKandung.required' => 'Nama ibu kandung belum diisi!',
+                'namaIbuKandung.regex' => 'Nama ibu kandung hanya bisa diisi dengan huruf!',
+                'email.required' => 'Email belum diisi!',
+                'password.required' => 'Password belum diisi!',
             ]
         );
     }
