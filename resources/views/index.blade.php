@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box">
-                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list-ul"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-content">TOTAL YANG SUDAH MENGAJUKAN</span>
                             <span class="info-box-number">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box mb-3">
-                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-x"></i></i></span>
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></i></span>
                         <div class="info-box-content">
                             <span class="info-box-content">PENGAJUAN YANG DITOLAK</span>
                             <span class="info-box-number">
@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box">
-                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-group"></i></span>
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-content">TOTAL MAHASISWA</span>
                             <span class="info-box-number">
@@ -72,7 +72,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box mb-3">
-                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-group"></i></span>
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-content">JUMLAH MAHASISWA</span>
                             <span class="info-box-number">
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box mb-3">
-                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-group"></i></span>
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-content">JUMLAH MAHASISWA</span>
                             <span class="info-box-number">
@@ -94,7 +94,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box mb-3">
-                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-group"></i></span>
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-content">JUMLAH MAHASISWA</span>
                             <span class="info-box-number">
