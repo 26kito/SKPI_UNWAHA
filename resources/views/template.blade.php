@@ -79,7 +79,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('list-mahasiswa') }}" class="nav-link {{ request()->route()->getName() == 'list-mahasiswa' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>
                                         Data Mahasiswa
@@ -136,7 +136,7 @@
                         </li>
                         @endif
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('edit-profile') }}" class="nav-link {{ request()->route()->getName() == 'edit-profile' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-key"></i>
                                 <p>
                                     Ganti Password
@@ -159,17 +159,7 @@
         </aside>
 
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Home</h1>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
+            @yield('content-header')
 
             <section class="content">
                 <div class="container-fluid">
