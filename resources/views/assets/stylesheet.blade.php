@@ -11,3 +11,7 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&d
 <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
