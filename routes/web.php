@@ -36,4 +36,7 @@ Route::middleware('custom-login')->group(function () {
 
     Route::get('/list/mahasiswa', [dosenProdiController::class, 'listMahasiswa'])->name('list-mahasiswa');
     Route::get('/get-data/mahasiswa', [dosenProdiController::class, 'getDataMahasiswa']);
+    Route::post('/update/mahasiswa/status', [dosenProdiController::class, 'updateStatusMahasiswa']);
+    Route::get('/add/mahasiswa', [dosenProdiController::class, 'addMahasiswaView'])->name('add-mahasiswa');
+    Route::get('/add/mahasiswa/bulk', [dosenProdiController::class, 'addMahasiswaBulkView'])->name('add-mahasiswa-bulk');
 });

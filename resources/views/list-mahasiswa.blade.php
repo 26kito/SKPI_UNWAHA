@@ -18,10 +18,10 @@
 <div class="card">
     <div class="card-body">
         <div class="add-mahasiswa mb-5">
-            <a class="btn btn-info" href="#" role="button">
+            <a class="btn btn-info" href="{{ route('add-mahasiswa') }}" role="button">
                 <i class="fa fa-plus"></i>
                 Tambah Data Mahasiswa</a>
-            <a class="btn btn-success" href="#" role="button">
+            <a class="btn btn-success" href="{{ route('add-mahasiswa-bulk') }}" role="button">
                 <i class="fa fa-plus"></i>
                 Tambah Data Mahasiswa Bulk</a>
         </div>
@@ -36,6 +36,7 @@
                     <th>Tanggal Lulus</th>
                     <th>No. Ijazah</th>
                     <th>Gelar</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -56,36 +57,71 @@
     $(document).ready(function () {
         new DataTable('#listMahasiswa');
 
-        $.ajax({
-            type: 'GET',
-            url: '/get-data/mahasiswa',
-            success: (result) => {
-                let table = ''
+        fetchData()
 
-                result.forEach((d) => {
-                    table += `
-                        <tr>
-                            <td>${d.NAMA}</td>
-                            <td>${d.NIM}</td>
-                            <td>${d.PRODI}</td>
-                            <td>${d.TempatTglLahir}</td>
-                            <td>${d.TANGGAL_MASUK}</td>
-                            <td>2024-06-06</td>
-                            <td>No Ijazah</td>
-                            <td>${d.GELAR}</td>
-                            <td style="display: flex; align-items: center; gap: 5px; height: 80px">
-                                <a href="#" class="btn btn-sm bg-success"><i class="fa fa-check"></i></a>
-                                <a href="#" class="btn btn-sm bg-warning"><i class="fa fa-pen"></i></a>
-                                <a href="#" class="btn btn-sm bg-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    `
+        $(document).on('click', '.update-status', function() {
+            const nim = $(this).data('nim')
+            const status = $(this).data('status')
+            const message = $(this).data('status') == 1 ? 'Menon-aktifkan' : 'Mengaktifkan'
+            const csrfToken = '{{ csrf_token() }}';
 
-                    return table
+            if (confirm(`Anda yakin ingin ${message} mahasiswa ini?`)) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/update/mahasiswa/status',
+                    data: {_token: csrfToken, nim: nim, status: status},
+                    success: function (res) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: res.status.toUpperCase(),
+                            text: res.message,
+                        });
+
+                        fetchData()
+                    }
                 })
-
-                $('#listMahasiswaContent').html(table)
             }
         })
+
+        function fetchData() {
+            $.ajax({
+                type: 'GET',
+                url: '/get-data/mahasiswa',
+                success: (result) => {
+                    let table = ''
+
+                    result.forEach((d) => {
+                        table += `
+                            <tr>
+                                <td>${d.NAMA}</td>
+                                <td>${d.NIM}</td>
+                                <td>${d.PRODI}</td>
+                                <td>${d.TempatTglLahir}</td>
+                                <td>${d.TANGGAL_MASUK}</td>
+                                <td>${(d.TANGGAL_LULUS) ? d.TANGGAL_LULUS : '-'}</td>
+                                <td>${(d.NO_IJAZAH) ? d.NO_IJAZAH : '-'}</td>
+                                <td>${d.GELAR}</td>
+                                <td>
+                                    <a href="#" class="btn btn-sm ${(d.STATUS == '1') ? 'bg-success' : 'bg-danger'}">
+                                        ${(d.STATUS == '1') ? 'AKTIF' : 'NON-AKTIF'}
+                                    </a>
+                                </td>
+                                <td style="display: flex; align-items: center; gap: 5px; height: 80px">
+                                    <a href="#" class="update-status btn btn-sm ${(d.STATUS == '1') ? 'bg-success' : 'bg-danger'}" data-nim="${d.NIM}" data-status="${d.STATUS}">
+                                        <i class="fa ${(d.STATUS == '1') ? 'fa-check' : 'fa-times'}"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm bg-warning"><i class="fa fa-pen"></i></a>
+                                    <a href="#" class="btn btn-sm bg-danger"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        `
+
+                        return table
+                    })
+
+                    $('#listMahasiswaContent').html(table)
+                }
+            })
+        }
     })
 </script>
