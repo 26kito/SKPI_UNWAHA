@@ -107,9 +107,7 @@
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    
     $(document).ready(function () {
-
         new DataTable('#skpiTable');
 
         let message = "{{ session('message') }}"

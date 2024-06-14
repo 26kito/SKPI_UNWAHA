@@ -32,4 +32,24 @@ class dosenProdiController extends Controller
 
         return $data;
     }
+
+    public function updateStatusMahasiswa(Request $request)
+    {
+        $nim = $request->nim;
+        $status = $request->status == 1 ? 0 : 1;
+
+        DB::table('mahasiswa')->where('NIM', $nim)->update(['STATUS' => $status]);
+
+        return response()->json(['status' => 'ok', 'message' => 'Berhasil update status mahasiswa!']);
+    }
+
+    public function addMahasiswaView()
+    {
+        return view('register-mahasiswa');
+    }
+
+    public function addMahasiswaBulkView()
+    {
+        return view('register-mahasiswa-bulk');
+    }
 }

@@ -59,6 +59,8 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+        $from = explode('8000', $request->server('HTTP_REFERER'))[1];
+
         $this->registerValidation($request);
 
         try {
@@ -71,12 +73,14 @@ class UserController extends Controller
                 $tempatLahir = $request->tempatLahir;
                 $tglLahir = $request->tglLahir;
                 $tglMasuk = $request->tglMasuk;
+                $tglLulus = $request->tglLulus;
+                $noIjazah = $request->noIjazah;
                 $gelarMahasiswa = $request->gelarMahasiswa;
                 $email = $request->email;
                 $password = Hash::make($request->password);
 
                 $file = $request->file('fotoMahasiswa');
-                $fileName = $nim . '_' . strtoupper($nama) . '.' . $file->getClientOriginalExtension();
+                $fileName = $file ? $nim . '_' . strtoupper($nama) . '.' . $file->getClientOriginalExtension() : null;
 
                 if (!$file) {
                     throw new Exception('Silahkan upload foto mahasiswa terlebih dahulu!');
@@ -99,6 +103,8 @@ class UserController extends Controller
                     'TEMPAT_LAHIR' => strtoupper($tempatLahir),
                     'TANGGAL_LAHIR' => $tglLahir,
                     'TANGGAL_MASUK' => $tglMasuk,
+                    'TANGGAL_LULUS' => $tglLulus,
+                    'NO_IJAZAH' => $noIjazah,
                     'FOTO' => $fileName,
                     'EMAIL' => $email,
                     'PASSWORD' => $password
@@ -107,7 +113,11 @@ class UserController extends Controller
                 Storage::disk('public')->putFileAs('profiles', $file, $fileName);
             });
 
-            return redirect()->route('login')->with(['status' => 'ok', 'message', 'Berhasil!']);
+            if (strpos($from, 'register')) {
+                return redirect()->route('login')->with(['status' => 'ok', 'message' => 'Berhasil!']);
+            } else {
+                return redirect()->back()->with(['status' => 'ok', 'message' => 'Berhasil!']);
+            }
         } catch (Exception $e) {
             return redirect()->back()->with(['status' => 'not ok', 'message' => $e->getMessage()])->withInput();
         }
@@ -123,7 +133,7 @@ class UserController extends Controller
                 'nik' => ['required', 'numeric', Rule::unique('mahasiswa', 'NIK')->ignore($input->nik)],
                 'namaIbuKandung' => ['required', 'regex:/^[a-zA-Z\s]*$/'],
                 'email' => ['required', 'email:rfc,dns', Rule::unique('mahasiswa', 'EMAIL')->ignore($input->email)],
-                'password' => 'required',
+                'password' => 'required|min:8',
                 'fotoMahasiswa' => [
                     'image', File::image()
                         ->max('3mb')
@@ -141,6 +151,7 @@ class UserController extends Controller
                 'namaIbuKandung.regex' => 'Nama ibu kandung hanya bisa diisi dengan huruf!',
                 'email.required' => 'Email belum diisi!',
                 'password.required' => 'Password belum diisi!',
+                'password.min' => 'Password minimal 8 karakter!',
             ]
         );
     }

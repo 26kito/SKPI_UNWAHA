@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SkpiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\dosenProdiController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,11 @@ Route::post('/register', [UserController::class, 'register'])->name('action-regi
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('custom-login')->group(function () {
-    Route::get('/', function () {
-        return view('index');
-    })->name('home');
+    Route::get('/', [HomeController::class, 'home'])->name('home');
 
     Route::get('/input/skpi', [SkpiController::class, 'view'])->name('view-input-skpi');
     Route::post('/input/skpi', [SkpiController::class, 'insert'])->name('insert-input-skpi');
+    Route::get('/data/all/skpi', [SkpiController::class, 'getAllSKPI']);
     Route::get('/data/skpi', [SkpiController::class, 'getSKPI']);
     Route::get('/download/portofolio/skpi/{fileName}', [SkpiController::class, 'downloadFile']);
     Route::get('/profile/change', [UserController::class, 'editPassView'])->name('edit-profile');
@@ -36,4 +36,7 @@ Route::middleware('custom-login')->group(function () {
 
     Route::get('/list/mahasiswa', [dosenProdiController::class, 'listMahasiswa'])->name('list-mahasiswa');
     Route::get('/get-data/mahasiswa', [dosenProdiController::class, 'getDataMahasiswa']);
+    Route::post('/update/mahasiswa/status', [dosenProdiController::class, 'updateStatusMahasiswa']);
+    Route::get('/add/mahasiswa', [dosenProdiController::class, 'addMahasiswaView'])->name('add-mahasiswa');
+    Route::get('/add/mahasiswa/bulk', [dosenProdiController::class, 'addMahasiswaBulkView'])->name('add-mahasiswa-bulk');
 });
