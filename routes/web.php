@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SkpiController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dosenProdiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,9 @@ Route::middleware('custom-login')->group(function () {
     Route::post('/input/skpi', [SkpiController::class, 'insert'])->name('insert-input-skpi');
     Route::get('/data/skpi', [SkpiController::class, 'getSKPI']);
     Route::get('/download/portofolio/skpi/{fileName}', [SkpiController::class, 'downloadFile']);
+    Route::get('/profile/change', [UserController::class, 'editPassView'])->name('edit-profile');
+    Route::post('/profile/change', [UserController::class, 'updatePass'])->name('update-profile');
+
+    Route::get('/list/mahasiswa', [dosenProdiController::class, 'listMahasiswa'])->name('list-mahasiswa');
+    Route::get('/get-data/mahasiswa', [dosenProdiController::class, 'getDataMahasiswa']);
 });

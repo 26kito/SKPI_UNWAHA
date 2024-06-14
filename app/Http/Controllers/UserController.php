@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Helpers\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -142,5 +143,36 @@ class UserController extends Controller
                 'password.required' => 'Password belum diisi!',
             ]
         );
+    }
+
+    public function editPassView()
+    {
+        $user = User::authUser();
+
+        return view('edit-profile')->with('user', $user);
+    }
+
+    public function updatePass(Request $request)
+    {
+        $user = User::authUser();
+        $oldPass = $request->oldPass;
+        $newPass = $request->newPass;
+        $newPassConfirm = $request->newPassConfirm;
+
+        try {
+            if (!Hash::check($oldPass, $user->PASSWORD)) {
+                throw new Exception('Password salah!');
+            }
+
+            if ($newPass !== $newPassConfirm) {
+                throw new Exception('Password baru dan konfirmasi password tidak sama!');
+            }
+
+            DB::table('user')->where('USERNAME', $user->USERNAME)->update(['PASSWORD' => Hash::make($newPass)]);
+
+            return redirect()->back()->with(['status' => 'ok', 'message' => 'Berhasil ubah password']);
+        } catch (Exception $e) {
+            return redirect()->back()->with(['status' => 'not ok', 'message' => $e->getMessage()])->withInput();
+        }
     }
 }
