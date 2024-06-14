@@ -79,7 +79,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('list-mahasiswa') }}" class="nav-link {{ request()->route()->getName() == 'list-mahasiswa' ? 'active' : '' }}">
+                                <a href="{{ route('list-mahasiswa') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-mahasiswa', 'add-mahasiswa']) ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>
                                         Data Mahasiswa
