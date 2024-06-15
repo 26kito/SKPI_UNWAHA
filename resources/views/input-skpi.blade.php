@@ -1,6 +1,20 @@
 @extends('template')
 
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+<style>
+    .dt-start {display: none !important;}
+</style>
+
+@section('content-header')
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Tambah Portofolio</h1>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 
 @section('content')
 <div class="card">
@@ -101,11 +115,6 @@
 @endsection
 
 @include('assets.scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
         new DataTable('#skpiTable');
