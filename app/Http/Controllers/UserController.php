@@ -6,8 +6,10 @@ use Exception;
 use App\Helpers\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Imports\MahasiswaImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -107,7 +109,6 @@ class UserController extends Controller
                     'NO_IJAZAH' => $noIjazah,
                     'FOTO' => $fileName,
                     'EMAIL' => $email,
-                    'PASSWORD' => $password
                 ]);
 
                 Storage::disk('public')->putFileAs('profiles', $file, $fileName);
@@ -185,5 +186,14 @@ class UserController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->with(['status' => 'not ok', 'message' => $e->getMessage()])->withInput();
         }
+    }
+
+    public function registerBulk(Request $request)
+    {
+        $file = $request->file('fileInsertMhsBulk');
+
+        Excel::import(new MahasiswaImport, $file);
+
+        return redirect()->back()->with(['status' => 'ok', 'message' => 'Berhasil!']);
     }
 }
