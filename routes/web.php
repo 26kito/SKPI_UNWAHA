@@ -30,7 +30,6 @@ Route::middleware('custom-login')->group(function () {
     Route::post('/input/skpi', [SkpiController::class, 'insert'])->name('insert-input-skpi');
     Route::get('/data/all/skpi', [SkpiController::class, 'getAllSKPI']);
     Route::get('/data/skpi', [SkpiController::class, 'getSKPI']);
-    Route::get('/download/portofolio/skpi/{fileName}', [SkpiController::class, 'downloadFile']);
     Route::get('/profile/change', [UserController::class, 'editPassView'])->name('edit-profile');
     Route::post('/profile/change', [UserController::class, 'updatePass'])->name('update-profile');
 
@@ -39,4 +38,8 @@ Route::middleware('custom-login')->group(function () {
     Route::post('/update/mahasiswa/status', [dosenProdiController::class, 'updateStatusMahasiswa']);
     Route::get('/add/mahasiswa', [dosenProdiController::class, 'addMahasiswaView'])->name('add-mahasiswa');
     Route::get('/add/mahasiswa/bulk', [dosenProdiController::class, 'addMahasiswaBulkView'])->name('add-mahasiswa-bulk');
+    Route::post('/add/mahasiswa/bulk', [UserController::class, 'registerBulk'])->name('action-register-bulk');
+
+    Route::get('/download/template/mahasiswa', [HomeController::class, 'downloadFile'])->name('download-template-mahasiswa');
+    Route::get('/download/portofolio/skpi/{fileName}', [SkpiController::class, 'downloadFile']);
 });

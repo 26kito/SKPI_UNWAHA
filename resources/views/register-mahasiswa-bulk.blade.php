@@ -16,11 +16,13 @@
 <div class="card" style="width: 1400px; margin: 0 auto;">
     <h5 class="card-header">Silahkan melengkapi form berikut!</h5>
     <div class="card-body">
-        <a href="" class="btn btn-warning mb-4" role="button">
+        <a href="{{ route('download-template-mahasiswa') }}" class="btn btn-warning mb-4" role="button">
             <i class="fa fa-download"></i>
             Download Template
         </a>
-        <form action="{{ route('action-register') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('action-register-bulk') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="fileInsertMhsBulk">Unggah File Excel</label>
@@ -37,3 +39,18 @@
 @endsection
 
 @include('assets.scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        let message = "{{ session('message') }}"
+        let status = "<?= (session()->has('status') && session('status') === 'ok') ? 'success' : 'error' ?>"
+
+        if (message && message != ' ') {
+            Swal.fire({
+                icon: status,
+                title: status.toUpperCase(),
+                text: message,
+            });
+        }
+    })
+</script>
