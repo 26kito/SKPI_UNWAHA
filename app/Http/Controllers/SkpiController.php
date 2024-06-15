@@ -26,7 +26,7 @@ class SkpiController extends Controller
         $tglPorto = $request->tglPorto;
         $noDokumenPorto = $request->noDokumenPorto;
         $file = $request->file('fileDokumen');
-        $fileName = $request->hasFile('fileDokumen') ? $request->file('fileDokumen')->getClientOriginalName() : null;
+        $fileName = $file ? $userID . '_' . $kategoriPortoID . '_' . str_replace(' ', '', $file->getClientOriginalName()) : null;
 
         $this->insertValidation($request);
 
