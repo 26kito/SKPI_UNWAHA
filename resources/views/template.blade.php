@@ -79,7 +79,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('list-mahasiswa') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-mahasiswa', 'add-mahasiswa']) ? 'active' : '' }}">
+                                <a href="{{ route('list-mahasiswa') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-mahasiswa', 'add-mahasiswa', 'add-mahasiswa-bulk']) ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>
                                         Data Mahasiswa
@@ -88,7 +88,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('list-kualifikasi') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-kualifikasi', 'add-kualifikasi']) ? 'active' : '' }}" class="nav-link">
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
                                         Data Kualifikasi

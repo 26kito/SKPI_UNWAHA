@@ -3,14 +3,8 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Helpers\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\File;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 
 class dosenProdiController extends Controller
 {
@@ -51,5 +45,40 @@ class dosenProdiController extends Controller
     public function addMahasiswaBulkView()
     {
         return view('register-mahasiswa-bulk');
+    }
+
+    public function listKualifikasi()
+    {
+        return view('list-kualifikasi');
+    }
+
+    public function addKualifikasiView()
+    {
+        return view('insert-kualifikasi');
+    }
+
+    public function insertKualifikasi(Request $request)
+    {
+        $prodi = strtoupper($request->prodi);
+        $judul = $request->judulKualifikasi;
+        $penjelasanKualifikasi = $request->penjelasanKualifikasi;
+        $subPenjelasan = $request->subPenjelasan;
+
+        DB::table('kualifikasi')
+            ->insert([
+                'PRODI' => $prodi,
+                'JUDUL_KUALIFIKASI' => $judul,
+                'PENJELASAN_KUALIFIKASI' => $penjelasanKualifikasi,
+                'SUB_PENJELASAN' => $subPenjelasan
+            ]);
+
+        return redirect()->back()->with(['status' => 'ok', 'message' => 'Berhasil!']);
+    }
+
+    public function getDataKualifikasi()
+    {
+        $data = DB::table('kualifikasi')->get();
+
+        return $data;
     }
 }
