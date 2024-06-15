@@ -43,6 +43,7 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/get-data/kualifikasi', [dosenProdiController::class, 'getDataKualifikasi']);
     Route::get('/add/kualifikasi', [dosenProdiController::class, 'addKualifikasiView'])->name('add-kualifikasi');
     Route::post('/add/kualifikasi', [dosenProdiController::class, 'insertKualifikasi'])->name('insert-kualifikasi');
+    Route::get('/list/portofolio', [dosenProdiController::class, 'listPortofolio'])->name('list-portofolio');
 
     Route::get('/download/template/mahasiswa', [HomeController::class, 'downloadFile'])->name('download-template-mahasiswa');
     Route::get('/download/portofolio/skpi/{fileName}', [SkpiController::class, 'downloadFile']);

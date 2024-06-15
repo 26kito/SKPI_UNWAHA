@@ -97,7 +97,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('list-portofolio') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-portofolio', 'add-portofolio']) ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-certificate"></i>
                                     <p>
                                         Data Portofolio

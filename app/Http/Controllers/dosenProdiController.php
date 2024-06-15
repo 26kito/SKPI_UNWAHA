@@ -81,4 +81,9 @@ class dosenProdiController extends Controller
 
         return $data;
     }
+
+    public function listPortofolio()
+    {
+        return view('list-portofolio');
+    }
 }
