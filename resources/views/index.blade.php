@@ -1,5 +1,9 @@
 @extends('template')
 
+<style>
+    .dt-start {display: none !important;}
+</style>
+
 @section('content-header')
 <div class="content-header">
     <div class="container-fluid">
@@ -11,8 +15,6 @@
     </div>
 </div>
 @endsection
-
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
 
 @section('content')
 <div class="card">
@@ -160,17 +162,15 @@
 @endsection
 
 @include('assets.scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
 <script>
     $(document).ready( function () {
-        new DataTable('#homeTable');
-
         let userRole = "{{ Helper::authUser()->ROLE }}"
 
         if (userRole == 'ADMIN') {
+            fetchData()
+        }
+
+        function fetchData() {
             $.ajax({
                 type: 'GET',
                 url: '/data/all/skpi',
@@ -192,8 +192,9 @@
     
                         return table
                     })
-    
+                    
                     $('#homeTableContent').html(table)
+                    $('#homeTable').DataTable();
                 }
             })
         }
