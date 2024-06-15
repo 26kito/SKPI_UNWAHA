@@ -23,7 +23,7 @@
         <h3>Selamat Datang</h3>
         <br>
         <h5 style="text-align: center;">Informasi Portofolio</h5>
-        <div class="container-fluid">
+        <div class="container-fluid mb-5">
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box">
@@ -164,7 +164,7 @@
 @include('assets.scripts')
 <script>
     $(document).ready( function () {
-        let userRole = "{{ Helper::authUser()->ROLE }}"
+        const userRole = "{{ Helper::authUser()->ROLE }}"
 
         if (userRole == 'ADMIN') {
             fetchData()
