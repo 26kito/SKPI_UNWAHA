@@ -168,12 +168,15 @@
 
         if (userRole == 'ADMIN') {
             fetchData()
+        } else {
+            $('#homeTable').DataTable();
+
         }
 
         function fetchData() {
             $.ajax({
                 type: 'GET',
-                url: '/data/all/skpi',
+                url: '/data/all/portofolio',
                 success: (result) => {
                     let table = ''
     

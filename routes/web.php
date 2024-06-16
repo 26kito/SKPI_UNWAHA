@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SkpiController;
+use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\dosenProdiController;
 use App\Http\Controllers\HomeController;
@@ -26,10 +26,10 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('custom-login')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
 
-    Route::get('/input/skpi', [SkpiController::class, 'view'])->name('view-input-skpi');
-    Route::post('/input/skpi', [SkpiController::class, 'insert'])->name('insert-input-skpi');
-    Route::get('/data/all/skpi', [SkpiController::class, 'getAllSKPI']);
-    Route::get('/data/skpi', [SkpiController::class, 'getSKPI']);
+    Route::get('/input/portofolio', [PortofolioController::class, 'view'])->name('view-input-portofolio');
+    Route::post('/input/portofolio', [PortofolioController::class, 'insert'])->name('insert-input-portofolio');
+    Route::get('/data/all/portofolio', [PortofolioController::class, 'getAllPortofolio']);
+    Route::get('/data/portofolio', [PortofolioController::class, 'getPortofolio']);
     Route::get('/profile/change', [UserController::class, 'editPassView'])->name('edit-profile');
     Route::post('/profile/change', [UserController::class, 'updatePass'])->name('update-profile');
 
@@ -46,5 +46,5 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/list/portofolio', [dosenProdiController::class, 'listPortofolio'])->name('list-portofolio');
 
     Route::get('/download/template/mahasiswa', [HomeController::class, 'downloadFile'])->name('download-template-mahasiswa');
-    Route::get('/download/portofolio/skpi/{fileName}', [SkpiController::class, 'downloadFile']);
+    Route::get('/download/portofolio/{fileName}', [PortofolioController::class, 'downloadFile']);
 });

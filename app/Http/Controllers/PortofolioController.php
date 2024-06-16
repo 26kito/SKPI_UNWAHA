@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class SkpiController extends Controller
+class PortofolioController extends Controller
 {
     public function view()
     {
         $data = DB::table('kategori_portofolio')->get();
 
-        return view('input-skpi')->with('data', $data);
+        return view('input-porto')->with('data', $data);
     }
 
     public function insert(Request $request)
@@ -35,7 +35,7 @@ class SkpiController extends Controller
                 throw new Exception('Silahkan upload dokumen terlebih dahulu!');
             }
 
-            DB::table('skpi')->insert([
+            DB::table('portofolio')->insert([
                 'USER_ID' => $userID,
                 'KATEGORI_PORTOFOLIO_ID' => $kategoriPortoID,
                 'NAMA' => $namaPorto,
@@ -43,13 +43,20 @@ class SkpiController extends Controller
                 'TANGGAL_PORTOFOLIO' => $tglPorto,
                 'NO_DOKUMEN' => $noDokumenPorto,
                 'NAMA_FILE' => $fileName,
+                'STATUS_ID' => 1 // Menunggu Persetujuan
             ]);
 
             Storage::disk('public')->putFileAs('documents', $file, $fileName);
 
-            return redirect()->back()->with('message', 'Berhasil input portofolio!');
+            return redirect()->back()->with(['status' => 'ok', 'message' => 'Berhasil input portofolio!']);
         } catch (Exception $e) {
-            return redirect()->back()->with(['status' => 'not ok', 'message' => $e->getMessage()]);
+            $errorMessage = $e->getMessage();
+
+            if (strpos($errorMessage, 'SQL') !== false) {
+                $errorMessage = "Data gagal disimpan!";
+            }
+
+            return redirect()->back()->with(['status' => 'not ok', 'message' => $errorMessage]);
         }
     }
 
@@ -73,22 +80,23 @@ class SkpiController extends Controller
         );
     }
 
-    public function getAllSKPI()
+    public function getAllPortofolio()
     {
-        $data = DB::table('skpi')
-            ->join('kategori_portofolio AS kp', 'skpi.KATEGORI_PORTOFOLIO_ID', 'kp.ID')
-            ->join('status_skpi AS ss', 'skpi.STATUS_ID', 'ss.ID')
-            ->join('mahasiswa AS mhs', 'skpi.USER_ID', 'mhs.ID')
+        $data = DB::table('portofolio')
+            ->join('kategori_portofolio AS kp', 'portofolio.KATEGORI_PORTOFOLIO_ID', 'kp.ID')
+            ->join('status_portofolio AS ss', 'portofolio.STATUS_ID', 'ss.ID')
+            ->join('user', 'portofolio.USER_ID', 'user.ID')
+            ->join('mahasiswa AS mhs', 'user.USERNAME', 'mhs.NIM')
             ->select(
                 'mhs.NAMA AS NAMA_MAHASISWA',
                 'kp.KATEGORI AS KATEGORI_PORTOFOLIO',
-                'skpi.NAMA AS NAMA_PORTOFOLIO',
-                'skpi.IS_SESUAI',
-                'skpi.TANGGAL_PORTOFOLIO',
-                'skpi.NO_DOKUMEN',
-                'skpi.STATUS_ID',
+                'portofolio.NAMA AS NAMA_PORTOFOLIO',
+                'portofolio.IS_SESUAI',
+                'portofolio.TANGGAL_PORTOFOLIO',
+                'portofolio.NO_DOKUMEN',
+                'portofolio.STATUS_ID',
                 'ss.STATUS',
-                'skpi.NAMA_FILE',
+                'portofolio.NAMA_FILE',
                 DB::raw("CASE
                             WHEN STATUS_ID = 1 THEN 'text-primary'
                             WHEN STATUS_ID = 2 THEN 'text-success'
@@ -100,23 +108,23 @@ class SkpiController extends Controller
         return $data;
     }
 
-    public function getSKPI()
+    public function getPortofolio()
     {
         $userID = User::authUser()->ID;
 
-        $data = DB::table('skpi')
-            ->join('kategori_portofolio AS kp', 'skpi.KATEGORI_PORTOFOLIO_ID', 'kp.ID')
-            ->join('status_skpi AS ss', 'skpi.STATUS_ID', 'ss.ID')
-            ->where('skpi.USER_ID', $userID)
+        $data = DB::table('portofolio')
+            ->join('kategori_portofolio AS kp', 'portofolio.KATEGORI_PORTOFOLIO_ID', 'kp.ID')
+            ->join('status_portofolio AS ss', 'portofolio.STATUS_ID', 'ss.ID')
+            ->where('portofolio.USER_ID', $userID)
             ->select(
                 'kp.KATEGORI AS KATEGORI_PORTOFOLIO',
-                'skpi.NAMA AS NAMA_PORTOFOLIO',
-                'skpi.IS_SESUAI',
-                'skpi.TANGGAL_PORTOFOLIO',
-                'skpi.NO_DOKUMEN',
-                'skpi.STATUS_ID',
+                'portofolio.NAMA AS NAMA_PORTOFOLIO',
+                'portofolio.IS_SESUAI',
+                'portofolio.TANGGAL_PORTOFOLIO',
+                'portofolio.NO_DOKUMEN',
+                'portofolio.STATUS_ID',
                 'ss.STATUS',
-                'skpi.NAMA_FILE',
+                'portofolio.NAMA_FILE',
                 DB::raw("CASE
                             WHEN STATUS_ID = 1 THEN 'text-primary'
                             WHEN STATUS_ID = 2 THEN 'text-success'

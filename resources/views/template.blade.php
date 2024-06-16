@@ -126,7 +126,7 @@
                         @endif
                         @if (Helper::authUser()->ROLE == 'MAHASISWA')
                         <li class="nav-item">
-                            <a href="{{ route('view-input-skpi') }}" class="nav-link {{ request()->route()->getName() == 'view-input-skpi' ? 'active' : '' }}">
+                            <a href="{{ route('view-input-portofolio') }}" class="nav-link {{ request()->route()->getName() == 'view-input-portofolio' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     Input Draft SKPI
