@@ -1,5 +1,9 @@
 @extends('template')
 
+<style>
+    .dt-start {display: none !important;}
+</style>
+
 @section('content-header')
 <div class="content-header">
     <div class="container-fluid">
@@ -11,8 +15,6 @@
     </div>
 </div>
 @endsection
-
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
 
 @section('content')
 <div class="card">
@@ -28,7 +30,8 @@
         <table id="listMahasiswa" class="display">
             <thead>
                 <tr>
-                    <th class="text-center">Nama Mahasiswa</th>
+                    <th class="text-center">No.</th>
+                    <th>Nama Mahasiswa</th>
                     <th>NIM</th>
                     <th>Nama Prodi</th>
                     <th>Tempat & Tanggal Lahir</th>
@@ -48,15 +51,8 @@
 @endsection
 
 @include('assets.scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
-        new DataTable('#listMahasiswa');
-
         fetchData()
 
         $(document).on('click', '.update-status', function() {
@@ -89,10 +85,14 @@
                 url: '/get-data/mahasiswa',
                 success: (result) => {
                     let table = ''
-
+                    let counter = 0
+                    
                     result.forEach((d) => {
+                        counter++
+
                         table += `
                             <tr>
+                                <td>${counter}</td>
                                 <td>${d.NAMA}</td>
                                 <td>${d.NIM}</td>
                                 <td>${d.PRODI}</td>
@@ -120,6 +120,7 @@
                     })
 
                     $('#listMahasiswaContent').html(table)
+                    $('#listMahasiswa').DataTable({'pageLength': 15});
                 }
             })
         }

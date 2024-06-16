@@ -28,4 +28,17 @@ class HomeController extends Controller
 
         return view('index')->with('data', $data);
     }
+
+    public function downloadFile()
+    {
+        $fileName = 'format_tambah_mahasiswa.xlsx';
+        $filePath = public_path($fileName);
+
+        // Validate filename and ensure it exists
+        if (!file_exists($filePath)) {
+            abort(404, 'File not found'); // Handle non-existent file
+        }
+
+        return response()->download($filePath, $fileName);
+    }
 }
