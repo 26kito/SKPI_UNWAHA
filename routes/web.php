@@ -30,6 +30,7 @@ Route::middleware('custom-login')->group(function () {
     Route::post('/input/portofolio', [PortofolioController::class, 'insert'])->name('insert-input-portofolio');
     Route::get('/data/all/portofolio', [PortofolioController::class, 'getAllPortofolio']);
     Route::get('/data/portofolio', [PortofolioController::class, 'getPortofolio']);
+    Route::post('/update/portofolio/status', [PortofolioController::class, 'updateStatusPortofolio']);
     Route::get('/profile/change', [UserController::class, 'editPassView'])->name('edit-profile');
     Route::post('/profile/change', [UserController::class, 'updatePass'])->name('update-profile');
 
