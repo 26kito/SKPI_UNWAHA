@@ -16,13 +16,13 @@ class HomeController extends Controller
             $data = DB::table('portofolio')
                 ->selectRaw("
                 COUNT(*) AS total_mengajukan,
-                COUNT(DISTINCT USER_ID) AS total_mhs,  
+                COUNT(DISTINCT ID_MAHASISWA) AS total_mhs,  
                 (SELECT COUNT(*) FROM portofolio WHERE STATUS_ID = 1) AS total_menunggu,
-                (SELECT COUNT(DISTINCT USER_ID) FROM portofolio WHERE STATUS_ID = 1) AS total_mhs_menunggu,
+                (SELECT COUNT(DISTINCT ID_MAHASISWA) FROM portofolio WHERE STATUS_ID = 1) AS total_mhs_menunggu,
                 (SELECT COUNT(*) FROM portofolio WHERE STATUS_ID = 2) AS total_disetujui,
-                (SELECT COUNT(DISTINCT USER_ID) FROM portofolio WHERE STATUS_ID = 2) AS total_mhs_disetujui,
+                (SELECT COUNT(DISTINCT ID_MAHASISWA) FROM portofolio WHERE STATUS_ID = 2) AS total_mhs_disetujui,
                 (SELECT COUNT(*) FROM portofolio WHERE STATUS_ID = 3) AS total_ditolak,
-                (SELECT COUNT(DISTINCT USER_ID) FROM portofolio WHERE STATUS_ID = 3) AS total_mhs_ditolak")
+                (SELECT COUNT(DISTINCT ID_MAHASISWA) FROM portofolio WHERE STATUS_ID = 3) AS total_mhs_ditolak")
                 ->first();
         }
 
