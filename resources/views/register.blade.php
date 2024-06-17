@@ -13,7 +13,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       margin: 0;
       background-color: #e8ecee;
     }
@@ -26,7 +25,7 @@
   </style>
 </head>
 
-<body style="background-color: #e8ecee">
+<body class="hold-transition" style="height: 100vh!important">
   <div class="container" style="vertical-align: middle">
     <div class="card" style="width: 1200px">
       <h5 class="card-header">Silahkan melengkapi form berikut!</h5>

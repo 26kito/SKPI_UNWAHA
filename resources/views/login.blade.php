@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="height: 100vh!important">
   <div class="login-box">
     <div class="card card-outline card-primary">
       <div class="card-body">
