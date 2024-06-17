@@ -75,11 +75,12 @@
                                 </td>
                                 <td class="fw-bolder ${d.status_text}">${d.STATUS}</td>
                                 <td style="display: flex; align-items: center; gap: 3px; height: 80px">
-                                    <a href="#" class="btn btn-sm btn-action-porto ${(d.STATUS_ID == 1) ? 'bg-success' : ((d.STATUS_ID == 2) ? 'bg-info' : 'bg-danger')}" data-portofolio-id=${d.ID_PORTOFOLIO} data-action="accept">
-                                        <i class="fa ${(d.STATUS_ID == 1) ? 'fa-check' : ((d.STATUS_ID == 2) ? 'fa-hourglass-half' : 'fa-times-circle')}"></i>
+                                    <a href="#" class="btn btn-sm btn-action-porto bg-success ${(d.STATUS_ID == 1) ? '' : 'd-none'}" data-portofolio-id=${d.ID_PORTOFOLIO} data-user-id=${d.ID_MAHASISWA} data-action="accept">
+                                        <i class="fa fa-check"></i>
                                     </a>
-                                    <a href="#" class="btn btn-action-porto btn-sm bg-danger" data-portofolio-id=${d.ID_PORTOFOLIO} data-action="decline"><i class="fa fa-times-circle"></i></a>
-                                    <a href="#" class="btn btn-sm bg-warning"><i class="fa fa-pen"></i></a>
+                                    <a href="#" class="btn btn-action-porto btn-sm bg-danger ${(d.STATUS_ID == 1) ? '' : 'd-none'}" data-portofolio-id=${d.ID_PORTOFOLIO} data-user-id=${d.ID_MAHASISWA} data-action="decline">
+                                        <i class="fa fa-times-circle"></i>
+                                    </a>
                                 </td>
                             </tr>
                         `
@@ -95,21 +96,37 @@
 
         $(document).on('click', '.btn-action-porto', function () {
             const portofolioID = $(this).data('portofolio-id')
+            const userID = $(this).data('user-id')
             const status = ($(this).data('action') == 'accept') ? 2 : 3
             const csrfToken = '{{ csrf_token() }}'
+            const actionMessage = ($(this).data('action') == 'accept') ? 'menyetujui' : 'menolak'
 
-            $.ajax({
-                type: 'POST',
-                url: '/update/portofolio/status',
-                data: {_token: csrfToken, portofolioID: portofolioID, status: status},
-                success: function(res) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: res.status.toUpperCase(),
-                        text: res.message,
-                    });
-
-                    fetchData()
+            Swal.fire({
+                title: `Anda yakin ingin ${actionMessage} portofolio ini?`,
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: "question",
+                inputLabel: "Catatan:",
+                input: "text",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Submit",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/update/portofolio/status',
+                        data: {_token: csrfToken, portofolioID: portofolioID, status: status, userID: userID, notes: result.value},
+                        success: function(res) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: res.status.toUpperCase(),
+                                text: res.message,
+                            });
+        
+                            fetchData()
+                        }
+                    })
                 }
             })
         })

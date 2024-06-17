@@ -86,4 +86,9 @@ class dosenProdiController extends Controller
     {
         return view('list-portofolio');
     }
+
+    public function listSkpi()
+    {
+        return view('list-skpi');
+    }
 }

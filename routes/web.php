@@ -31,6 +31,7 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/data/all/portofolio', [PortofolioController::class, 'getAllPortofolio']);
     Route::get('/data/portofolio', [PortofolioController::class, 'getPortofolio']);
     Route::post('/update/portofolio/status', [PortofolioController::class, 'updateStatusPortofolio']);
+    Route::get('/data/all/skpi', [PortofolioController::class, 'getAllSKPI']);
     Route::get('/profile/change', [UserController::class, 'editPassView'])->name('edit-profile');
     Route::post('/profile/change', [UserController::class, 'updatePass'])->name('update-profile');
 
@@ -45,6 +46,7 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/add/kualifikasi', [dosenProdiController::class, 'addKualifikasiView'])->name('add-kualifikasi');
     Route::post('/add/kualifikasi', [dosenProdiController::class, 'insertKualifikasi'])->name('insert-kualifikasi');
     Route::get('/list/portofolio', [dosenProdiController::class, 'listPortofolio'])->name('list-portofolio');
+    Route::get('/list/skpi', [dosenProdiController::class, 'listSkpi'])->name('list-skpi');
 
     Route::get('/download/template/mahasiswa', [HomeController::class, 'downloadFile'])->name('download-template-mahasiswa');
     Route::get('/download/portofolio/{fileName}', [PortofolioController::class, 'downloadFile']);
