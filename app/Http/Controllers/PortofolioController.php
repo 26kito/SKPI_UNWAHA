@@ -88,6 +88,7 @@ class PortofolioController extends Controller
             ->join('user', 'portofolio.USER_ID', 'user.ID')
             ->join('mahasiswa AS mhs', 'user.USERNAME', 'mhs.NIM')
             ->select(
+                'portofolio.ID AS ID_PORTOFOLIO',
                 'mhs.NAMA AS NAMA_MAHASISWA',
                 'kp.KATEGORI AS KATEGORI_PORTOFOLIO',
                 'portofolio.NAMA AS NAMA_PORTOFOLIO',
@@ -143,5 +144,15 @@ class PortofolioController extends Controller
         } else {
             abort(404, 'File not found'); // Handle non-existent file
         }
+    }
+
+    public function updateStatusPortofolio(Request $request)
+    {
+        $portofolioID = $request->portofolioID;
+        $status = $request->status;
+
+        DB::table('portofolio')->where('ID', $portofolioID)->update(['STATUS_ID' => $status]);
+
+        return response()->json(['status' => 'ok', 'message' => 'Berhasil update status portofolio!']);
     }
 }
