@@ -20,7 +20,7 @@
 <div class="card">
     <h5 class="card-header">Silahkan melengkapi form berikut!</h5>
     <div class="card-body">
-        <form action="{{ route('insert-input-skpi') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('insert-input-portofolio') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-row">
@@ -29,7 +29,7 @@
                     <select class="form-control" name="kategoriPorto" id="kategoriPorto">
                         <option value="NULL" selected disabled>Pilih kategori portofolio</option>
                         @foreach ($data as $key => $row)
-                            <option value="{{ $row->ID }}">{{ $row->KATEGORI }}</option>
+                            <option value="{{ $row->ID }}" {{ old('kategoriPorto') == $row->ID ? 'selected' : '' }}>{{ $row->KATEGORI }}</option>
                         @endforeach
                     </select>
 
@@ -93,7 +93,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <table id="skpiTable" class="display">
+        <table id="portoTable" class="display">
             <thead>
                 <tr>
                     <th class="text-center">Kategori Portofolio</th>
@@ -107,7 +107,7 @@
                     <th style="display: none"></th>
                 </tr>
             </thead>
-            <tbody id="skpiTableContent">
+            <tbody id="portoTableContent">
             </tbody>
         </table>
     </div>
@@ -117,7 +117,7 @@
 @include('assets.scripts')
 <script>
     $(document).ready(function () {
-        new DataTable('#skpiTable');
+        new DataTable('#portoTable');
 
         let message = "{{ session('message') }}"
         let status = "<?= (session()->has('status') && session('status') === 'ok') ? 'success' : 'error' ?>"
@@ -133,7 +133,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '/data/skpi',
+            url: '/data/portofolio',
             success: (result) => {
                 let table = ''
 
@@ -146,7 +146,7 @@
                             <td>${d.TANGGAL_PORTOFOLIO}</td>
                             <td>${d.NO_DOKUMEN}</td>
                             <td>
-                                <a href="/download/portofolio/skpi/${d.NAMA_FILE}" onclick="return confirm('Download file ini?')">
+                                <a href="/download/portofolio/${d.NAMA_FILE}" onclick="return confirm('Download file ini?')">
                                     <img src="${icon}" style="max-width: 30px">
                                 </a>
                             </td>
@@ -161,7 +161,7 @@
                     return table
                 })
 
-                $('#skpiTableContent').html(table)
+                $('#portoTableContent').html(table)
             }
         })
     })

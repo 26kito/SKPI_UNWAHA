@@ -51,7 +51,7 @@
         function fetchData() {
             $.ajax({
                 type: 'GET',
-                url: '/data/all/skpi',
+                url: '/data/all/portofolio',
                 success: (result) => {
                     let table = ''
                     let counter = 0
@@ -69,7 +69,7 @@
                                 <td>${d.TANGGAL_PORTOFOLIO}</td>
                                 <td>${d.NO_DOKUMEN}</td>
                                 <td>
-                                    <a href="/download/portofolio/skpi/${d.NAMA_FILE}" onclick="return confirm('Download file ini?')">
+                                    <a href="/download/portofolio/${d.NAMA_FILE}" onclick="return confirm('Download file ini?')">
                                         <img src="${icon}" style="max-width: 30px">
                                     </a>
                                 </td>
