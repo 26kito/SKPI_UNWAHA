@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Helpers\User;
-use App\Helpers\MonthToRomanNumerals;
+use Endroid\QrCode\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Endroid\QrCode\Writer\PngWriter;
+use App\Helpers\MonthToRomanNumerals;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 
 class PortofolioController extends Controller
@@ -161,7 +164,9 @@ class PortofolioController extends Controller
 
             $mhs = DB::table('mahasiswa')->where('ID', $userID)->first();
 
-            if ($status == 2) {
+            $checkMhsSkpi = DB::table('skpi')->where('ID_MAHASISWA', $mhs->ID)->exists();
+
+            if ($status == 2 && $checkMhsSkpi == false) {
                 $month = MonthToRomanNumerals::generate(date('n'));
 
                 $latestNoSKPI = DB::table('skpi')->max('NO_SKPI');
@@ -178,9 +183,10 @@ class PortofolioController extends Controller
 
                 DB::table('skpi')->insert([
                     'NO_SKPI' => $formatNoSKPI,
-                    'NIM_MAHASISWA' => $mhs->NIM,
+                    'ID_MAHASISWA' => $mhs->ID,
                     'TANGGAL_SKPI' => date('Y-m-d'),
-                    'STATUS' => 0
+                    'STATUS' => 0,
+                    'QRCODE' => Crypt::encryptString($formatNoSKPI)
                 ]);
             }
 
@@ -196,14 +202,32 @@ class PortofolioController extends Controller
     public function getAllSKPI()
     {
         $data = DB::table('skpi')
-            ->join('mahasiswa', 'skpi.NIM_MAHASISWA', 'mahasiswa.NIM')
-            ->select('skpi.NO_SKPI', 'mahasiswa.NAMA AS NAMA_MAHASISWA', 'skpi.TANGGAL_SKPI', 
+            ->join('mahasiswa', 'skpi.ID_MAHASISWA', 'mahasiswa.ID')
+            ->select(
+                'skpi.ID',
+                'skpi.NO_SKPI',
+                'mahasiswa.NAMA AS NAMA_MAHASISWA',
+                'skpi.TANGGAL_SKPI',
                 DB::raw("CASE
                     WHEN skpi.STATUS = 0 THEN 'Belum Disetujui'
                     WHEN skpi.STATUS = 1 THEN 'Disetujui'
-                END AS STATUS"))
+                END AS STATUS")
+            )
             ->get();
 
         return $data;
+    }
+
+    public function getQR($skpiID)
+    {
+        $skpi = DB::table('skpi')->where('ID', $skpiID)->first();
+
+        $qr_code = QrCode::create($skpi->QRCODE);
+
+        $writer = new PngWriter;
+        $result = $writer->write($qr_code);
+        $base64_string = base64_encode($result->getString());
+
+        return view('print-qr')->with('qr', $base64_string);
     }
 }

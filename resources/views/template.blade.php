@@ -106,7 +106,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('list-skpi') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-skpi']) ? 'active' : '' }}" class="nav-link">
+                                <a href="{{ route('list-skpi') }}" class="nav-link {{ request()->route()->getName() == 'list-skpi' ? 'active' : '' }}" class="nav-link">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>
                                         Data SKPI
@@ -115,7 +115,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('validate-skpi') }}" class="nav-link {{ in_array(request()->route()->getName(), ['validate-skpi', 'action-validate-skpi']) ? 'active' : '' }}" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         Validasi SKPI

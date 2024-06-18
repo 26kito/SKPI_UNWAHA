@@ -65,7 +65,7 @@
                                         <i class="fa fa-pen"></i>
                                     </a>
                                     <a href="#" class="btn btn-action-porto btn-sm bg-danger" data-portofolio-id=${d.ID_PORTOFOLIO} data-action="decline"><i class="fa fa-trash"></i></a>
-                                    <a href="#" class="btn btn-sm bg-warning"><i class="fa fa-print"></i></a>
+                                    <a href="/print/skpi/qr/${d.ID}" target="_blank" class="btn btn-sm bg-warning"><i class="fa fa-print"></i></a>
                                 </td>
                             </tr>
                         `
