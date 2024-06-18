@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class dosenProdiController extends Controller
 {
@@ -90,5 +92,35 @@ class dosenProdiController extends Controller
     public function listSkpi()
     {
         return view('list-skpi');
+    }
+
+    public function validateSkpi()
+    {
+
+        return view('form-validate-skpi');
+    }
+
+    public function actionValidateSkpi(Request $request)
+    {
+        $code = $request->encryptionCode;
+
+        try {
+            if (!$code || $code == null) {
+                throw new DecryptException('Isi encrpytion code terlebih dahulu');
+            }
+
+            $decryptedCode = Crypt::decryptString($code);
+            $data = DB::table('skpi')->where('NO_SKPI', $decryptedCode)->first();
+
+            if (!$data) {
+                throw new DecryptException('Data tidak ditemukan!');
+            }
+
+            return view('validate-skpi')->with('data', $data);
+        } catch (DecryptException $e) {
+            $message = $e->getMessage();
+
+            return redirect()->back()->with(['status' => 'not ok', 'message' => $message]);
+        }
     }
 }

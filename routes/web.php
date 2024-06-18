@@ -47,7 +47,10 @@ Route::middleware('custom-login')->group(function () {
     Route::post('/add/kualifikasi', [dosenProdiController::class, 'insertKualifikasi'])->name('insert-kualifikasi');
     Route::get('/list/portofolio', [dosenProdiController::class, 'listPortofolio'])->name('list-portofolio');
     Route::get('/list/skpi', [dosenProdiController::class, 'listSkpi'])->name('list-skpi');
+    Route::get('/validate/skpi', [dosenProdiController::class, 'validateSkpi'])->name('validate-skpi');
+    Route::post('/validate/skpi', [dosenProdiController::class, 'actionValidateSkpi'])->name('action-validate-skpi');
 
     Route::get('/download/template/mahasiswa', [HomeController::class, 'downloadFile'])->name('download-template-mahasiswa');
     Route::get('/download/portofolio/{fileName}', [PortofolioController::class, 'downloadFile']);
+    Route::get('/print/skpi/qr/{skpiID}', [PortofolioController::class, 'getQR']);
 });
