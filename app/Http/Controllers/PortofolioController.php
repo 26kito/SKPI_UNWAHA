@@ -206,12 +206,14 @@ class PortofolioController extends Controller
             ->select(
                 'skpi.ID',
                 'skpi.NO_SKPI',
+                'skpi.ID_MAHASISWA',
                 'mahasiswa.NAMA AS NAMA_MAHASISWA',
                 'skpi.TANGGAL_SKPI',
+                'skpi.STATUS',
                 DB::raw("CASE
                     WHEN skpi.STATUS = 0 THEN 'Belum Disetujui'
                     WHEN skpi.STATUS = 1 THEN 'Disetujui'
-                END AS STATUS")
+                END AS STATUS_TEXT")
             )
             ->get();
 
@@ -229,5 +231,15 @@ class PortofolioController extends Controller
         $base64_string = base64_encode($result->getString());
 
         return view('print-qr')->with('qr', $base64_string);
+    }
+
+    public function updateStatusSKPI(Request $request)
+    {
+        $skpiID = $request->skpiID;
+        $mhsID = $request->mhsID;
+
+        DB::table('skpi')->where('ID', $skpiID)->where('ID_MAHASISWA', $mhsID)->update(['STATUS' => 1]);
+
+        return response()->json(['status' => 'ok', 'message' => 'Berhasil menyetujui draft SKPI!']);
     }
 }

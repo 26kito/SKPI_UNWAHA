@@ -49,6 +49,7 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/list/skpi', [dosenProdiController::class, 'listSkpi'])->name('list-skpi');
     Route::get('/validate/skpi', [dosenProdiController::class, 'validateSkpi'])->name('validate-skpi');
     Route::post('/validate/skpi', [dosenProdiController::class, 'actionValidateSkpi'])->name('action-validate-skpi');
+    Route::post('/update/skpi/status', [PortofolioController::class, 'updateStatusSKPI']);
 
     Route::get('/download/template/mahasiswa', [HomeController::class, 'downloadFile'])->name('download-template-mahasiswa');
     Route::get('/download/portofolio/{fileName}', [PortofolioController::class, 'downloadFile']);
