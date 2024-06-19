@@ -40,6 +40,8 @@
 @include('assets.scripts')
 <script>
     $(document).ready(function () {
+        const role = "{{ Helper::authUser()->ROLE }}"
+
         fetchData()
 
         function fetchData() {
@@ -59,13 +61,10 @@
                                 <td>${d.NO_SKPI}</td>
                                 <td>${d.NAMA_MAHASISWA}</td>
                                 <td>${d.TANGGAL_SKPI}</td>
-                                <td>${d.STATUS}</td>
+                                <td class="fw-bolder ${(d.STATUS == 0) ? 'text-danger' : 'text-success'}">${d.STATUS_TEXT}</td>
                                 <td style="display: flex; align-items: center; gap: 3px; height: 80px">
-                                    <a href="#" class="btn btn-sm btn-action-porto bg-warning" data-portofolio-id=${d.ID_PORTOFOLIO} data-action="accept">
-                                        <i class="fa fa-pen"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-action-porto btn-sm bg-danger" data-portofolio-id=${d.ID_PORTOFOLIO} data-action="decline"><i class="fa fa-trash"></i></a>
-                                    <a href="/print/skpi/qr/${d.ID}" target="_blank" class="btn btn-sm bg-warning"><i class="fa fa-print"></i></a>
+                                    <a href="#" class="btn btn-sm btn-accept-skpi bg-success ${(role == 'DEKAN' && d.STATUS == 0) ? '' : 'd-none'}" data-skpi-id=${d.ID} data-mhs-id=${d.ID_MAHASISWA}><i class="nav-icon far fa-check-square"></i></a>
+                                    <a href="/print/skpi/qr/${d.ID}" target="_blank" class="btn btn-sm bg-purple"><i class="nav-icon fa fa-print"></i></a>
                                 </td>
                             </tr>
                         `
@@ -78,5 +77,38 @@
                 }
             })
         }
+
+        $(document).on('click', '.btn-accept-skpi', function () {
+            const skpiID = $(this).data('skpi-id')
+            const mhsID = $(this).data('mhs-id')
+            const csrfToken = '{{ csrf_token() }}'
+
+            Swal.fire({
+                title: `Anda yakin ingin menyetujui draft SKPI ini?`,
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Submit",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/update/skpi/status',
+                        data: {_token: csrfToken, skpiID: skpiID, mhsID: mhsID},
+                        success: function(res) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: res.status.toUpperCase(),
+                                text: res.message,
+                            });
+
+                            fetchData()
+                        }
+                    })
+                }
+            })
+        })
     })
 </script>
