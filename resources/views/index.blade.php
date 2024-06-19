@@ -1,5 +1,7 @@
 @extends('template')
 
+@section('title', 'Dashboard')
+
 <style>
     .dt-start {display: none !important;}
 </style>
