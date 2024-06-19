@@ -1,5 +1,7 @@
 @extends('template')
 
+@section('title', 'Tambah Data Mahasiswa Bulk')
+
 @section('content-header')
 <div class="content-header">
     <div class="container-fluid">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>SKPI UNWAHA | @yield('title')</title>
     @include('assets.stylesheet')
 </head>
 
@@ -48,7 +48,7 @@
                                 </p>
                             </a>
                         </li>
-                        @if (Helper::authUser()->ROLE == 'DEKAN')
+                        {{-- @if (Helper::authUser()->ROLE == 'DEKAN')
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-book"></i>
@@ -67,7 +67,7 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                        @endif --}}
                         @if (Helper::authUser()->ROLE == 'ADMIN')
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
@@ -105,6 +105,8 @@
                                     </p>
                                 </a>
                             </li>
+                        @endif
+                        @if (in_array(Helper::authUser()->ROLE, ['ADMIN', 'DEKAN']))
                             <li class="nav-item">
                                 <a href="{{ route('list-skpi') }}" class="nav-link {{ request()->route()->getName() == 'list-skpi' ? 'active' : '' }}" class="nav-link">
                                     <i class="nav-icon fas fa-book"></i>

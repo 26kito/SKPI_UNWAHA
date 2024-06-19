@@ -1,5 +1,7 @@
 @extends('template')
 
+@section('title', "SKPI $data->NO_SKPI")
+
 @section('content-header')
 <div class="content-header">
     <div class="container-fluid">
@@ -30,8 +32,8 @@
                 <td>konten</td>
             </tr>
             <tr>
-                <td>iqbal</td>
-                <td>kerja woe</td>
+                <td>isi konten lainnya...</td>
+                <td>isi konten lainnya...</td>
             </tr>
         </table>
     </div>

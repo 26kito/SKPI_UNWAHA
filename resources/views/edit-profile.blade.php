@@ -1,5 +1,7 @@
 @extends('template')
 
+@section('title', "Ubah Password")
+
 @section('content-header')
 <div class="content-header">
     <div class="container-fluid">

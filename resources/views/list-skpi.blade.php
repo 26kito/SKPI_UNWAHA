@@ -1,5 +1,7 @@
 @extends('template')
 
+@section('title', 'Daftar SKPI')
+
 <style>
     .dt-start {display: none !important;}
 </style>
