@@ -120,7 +120,7 @@
             </div>
         </div>
 
-        <table id="homeTable" class="display">
+        {{-- <table id="homeTable" class="display">
             <thead>
                 <tr>
                     <th>Nama Mahasiswa</th>
@@ -134,7 +134,7 @@
             </thead>
             <tbody id="homeTableContent">
             </tbody>
-        </table>
+        </table> --}}
     </div>
     @else
     <div class="card-body">
@@ -168,40 +168,43 @@
     $(document).ready( function () {
         const userRole = "{{ Helper::authUser()->ROLE }}"
 
-        if (userRole == 'ADMIN') {
-            fetchData()
-        } else {
+        // if (userRole == 'ADMIN') {
+        //     fetchData()
+        // } else {
+        //     $('#homeTable').DataTable();
+
+        // }
+        if (userRole != 'ADMIN') {
             $('#homeTable').DataTable();
-
         }
 
-        function fetchData() {
-            $.ajax({
-                type: 'GET',
-                url: '/data/all/portofolio',
-                success: (result) => {
-                    let table = ''
+        // function fetchData() {
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: '/data/all/portofolio',
+        //         success: (result) => {
+        //             let table = ''
     
-                    result.forEach((d) => {
-                        table += `
-                            <tr>
-                                <td>${d.NAMA_MAHASISWA}</td>
-                                <td>${d.KATEGORI_PORTOFOLIO}</td>
-                                <td>${d.NAMA_PORTOFOLIO}</td>
-                                <td>${d.IS_SESUAI}</td>
-                                <td>${d.TANGGAL_PORTOFOLIO}</td>
-                                <td>${d.NO_DOKUMEN}</td>
-                                <td class="fw-bolder ${d.status_text}">${d.STATUS}</td>
-                            </tr>
-                        `
+        //             result.forEach((d) => {
+        //                 table += `
+        //                     <tr>
+        //                         <td>${d.NAMA_MAHASISWA}</td>
+        //                         <td>${d.KATEGORI_PORTOFOLIO}</td>
+        //                         <td>${d.NAMA_PORTOFOLIO}</td>
+        //                         <td>${d.IS_SESUAI}</td>
+        //                         <td>${d.TANGGAL_PORTOFOLIO}</td>
+        //                         <td>${d.NO_DOKUMEN}</td>
+        //                         <td class="fw-bolder ${d.status_text}">${d.STATUS}</td>
+        //                     </tr>
+        //                 `
     
-                        return table
-                    })
+        //                 return table
+        //             })
                     
-                    $('#homeTableContent').html(table)
-                    $('#homeTable').DataTable();
-                }
-            })
-        }
+        //             $('#homeTableContent').html(table)
+        //             $('#homeTable').DataTable();
+        //         }
+        //     })
+        // }
     })
 </script>
