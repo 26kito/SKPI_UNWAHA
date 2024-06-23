@@ -7,12 +7,14 @@ use App\Helpers\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Imports\MahasiswaImport;
+use Mews\Captcha\Facades\Captcha;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -30,17 +32,33 @@ class UserController extends Controller
         $usn = $request->username;
         $password = $request->password;
 
-        $user = DB::table('user')->where('USERNAME', $usn)->first();
+        $validate = Validator::make($request->only(['username', 'password', 'captcha']), [
+            'username' => 'required',
+            'password' => 'required',
+            'captcha' => (($request->has('captcha')) ? 'required|captcha' : ''),
+        ], [
+            'captcha.captcha' => 'Invalid captcha!'
+        ]);
 
-        if (!$user || !Hash::check($password, $user->PASSWORD)) {
-            return redirect()->back()->with('message', 'Username atau password salah!');
+        try {
+            if ($validate->fails()) {
+                throw new Exception($validate->errors()->first());
+            }
+    
+            $user = DB::table('user')->where('USERNAME', $usn)->first();
+    
+            if (!$user || !Hash::check($password, $user->PASSWORD)) {
+                throw new Exception('Username atau password salah!');
+            }
+    
+            $encryptedUserID = encrypt($user->ID);
+            Session::put('isLogin', $encryptedUserID);
+            Session::put('user', $user);
+    
+            return redirect()->intended(route('home'));
+        } catch (Exception $e) {
+            return redirect()->back()->with(['message' => $e->getMessage()])->withErrors($e->getMessage())->withInput();
         }
-
-        $encryptedUserID = encrypt($user->ID);
-        Session::put('isLogin', $encryptedUserID);
-        Session::put('user', $user);
-
-        return redirect()->intended(route('home'));
     }
 
     public function logout(Request $request)

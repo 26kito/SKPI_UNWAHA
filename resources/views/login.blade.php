@@ -38,8 +38,7 @@
                 <span class="fas fa-user"></span>
               </div>
             </div>
-            <input type="text" class="form-control" name="username" placeholder="Username" required
-              value="{{ old('username') }}">
+            <input type="text" class="form-control" name="username" placeholder="Username" value="{{ old('username') }}">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-append">
@@ -47,7 +46,7 @@
                 <span class="fas fa-lock"></span>
               </div>
             </div>
-            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" placeholder="Password">
           </div>
           <div class="row">
             <div class="col-6">
@@ -59,6 +58,19 @@
             </div>
             <!-- /.col -->
           </div>
+          <br>
+          @if ($errors->any())
+          <div class="captcha">
+            <img src="{{ captcha_src() }}" alt="captcha">
+            <div class="mt-2"></div>
+            <input 
+                type="text" name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="Please Insert Captch"
+                >
+            @error('captcha') 
+            <div class="invalid-feedback">{{ $message }}</div> 
+            @enderror
+          </div>
+          @endif
         </form>
       </div>
       <!-- /.card-body -->
