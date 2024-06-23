@@ -63,22 +63,29 @@
             const message = $(this).data('status') == 1 ? 'Menon-aktifkan' : 'Mengaktifkan'
             const csrfToken = '{{ csrf_token() }}';
 
-            if (confirm(`Anda yakin ingin ${message} mahasiswa ini?`)) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/update/mahasiswa/status',
-                    data: {_token: csrfToken, nim: nim, status: status},
-                    success: function (res) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: res.status.toUpperCase(),
-                            text: res.message,
-                        });
-
-                        fetchData()
-                    }
-                })
-            }
+            Swal.fire({
+                title: `Anda yakin ingin ${message} mahasiswa ini?`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Submit",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/update/mahasiswa/status',
+                        data: {_token: csrfToken, nim: nim, status: status},
+                        success: function (res) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: res.status.toUpperCase(),
+                                text: res.message,
+                            });
+        
+                            fetchData()
+                        }
+                    })
+                }
+            })
         })
 
         function fetchData() {
@@ -122,7 +129,7 @@
                     })
 
                     $('#listMahasiswaContent').html(table)
-                    $('#listMahasiswa').DataTable({'pageLength': 15});
+                    $('#listMahasiswa').DataTable();
                 }
             })
         }

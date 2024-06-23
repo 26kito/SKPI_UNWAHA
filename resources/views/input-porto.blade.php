@@ -146,14 +146,14 @@
                             <td>${d.TANGGAL_PORTOFOLIO}</td>
                             <td>${d.NO_DOKUMEN}</td>
                             <td>
-                                <a href="/download/portofolio/${d.NAMA_FILE}" onclick="return confirm('Download file ini?')">
+                                <a href="#" class="download-porto-file" data-nama-file="${d.NAMA_FILE}">
                                     <img src="${icon}" style="max-width: 30px">
                                 </a>
                             </td>
                             <td class="fw-bolder ${d.status_text}">${d.STATUS}</td>
-                            <td class="${(d.STATUS_ID != 1) ? 'd-none' : ''}" style="display: flex; align-items: center; gap: 10px; height: 80px">
-                                <a href="#" class="btn bg-warning"><i class="fa fa-pen"></i></a>
-                                <a href="#" class="btn bg-danger"><i class="fa fa-trash"></i></a>
+                            <td style="display: flex; align-items: center; gap: 10px; height: 80px">
+                                <a href="#" class="btn bg-warning ${(d.STATUS_ID != 1) ? 'd-none' : ''}"><i class="fa fa-pen"></i></a>
+                                <a href="#" class="btn bg-danger ${(d.STATUS_ID != 1) ? 'd-none' : ''}"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     `
@@ -163,6 +163,23 @@
 
                 $('#portoTableContent').html(table)
             }
+        })
+
+        $(document).on('click', '.download-porto-file', function() {
+            const namaFile = $(this).data('nama-file')
+
+            Swal.fire({
+                title: `Anda yakin ingin mengunduh dokumen portofolio ini?`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Submit",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `/download/portofolio/${namaFile}`
+                }
+            })
         })
     })
 </script>
