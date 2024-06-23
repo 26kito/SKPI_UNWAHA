@@ -66,7 +66,7 @@
                                 <td class="fw-bolder ${(d.STATUS == 0) ? 'text-danger' : 'text-success'}">${d.STATUS_TEXT}</td>
                                 <td style="display: flex; align-items: center; gap: 3px; height: 80px">
                                     <a href="#" class="btn btn-sm btn-accept-skpi bg-success ${(role == 'DEKAN' && d.STATUS == 0) ? '' : 'd-none'}" data-skpi-id=${d.ID} data-mhs-id=${d.ID_MAHASISWA}><i class="nav-icon far fa-check-square"></i></a>
-                                    <a href="/print/skpi/qr/${d.ID}" target="_blank" class="btn btn-sm bg-purple"><i class="nav-icon fa fa-print"></i></a>
+                                    <a href="/print/skpi/qr/${d.ID}" target="_blank" class="btn btn-sm bg-purple ${(d.STATUS == 1) ? '' : 'd-none'}"><i class="nav-icon fa fa-print"></i></a>
                                 </td>
                             </tr>
                         `
