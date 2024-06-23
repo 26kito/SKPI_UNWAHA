@@ -20,6 +20,12 @@
 <body class="hold-transition login-page" style="height: 100vh!important">
   <div class="login-box">
     <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <div class="logo mb-3">
+          <img src="https://unwaha.ac.id/wp-content/uploads/2022/12/logo_besar.png" alt="logo-unwaha" style="width: 100px">
+        </div>
+        <h4>Aplikasi Surat Keterangan Pendamping Ijazah</h4>
+      </div>
       <div class="card-body">
         <p class="login-box-msg">Silahkan Login</p>
 
