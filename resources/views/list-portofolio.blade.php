@@ -71,7 +71,7 @@
                                 <td>${d.TANGGAL_PORTOFOLIO}</td>
                                 <td>${d.NO_DOKUMEN}</td>
                                 <td>
-                                    <a href="/download/portofolio/${d.NAMA_FILE}" onclick="return confirm('Download file ini?')">
+                                    <a href="#" class="download-porto-file" data-nama-file="${d.NAMA_FILE}">
                                         <img src="${icon}" style="max-width: 30px">
                                     </a>
                                 </td>
@@ -95,6 +95,23 @@
                 }
             })
         }
+
+        $(document).on('click', '.download-porto-file', function() {
+            const namaFile = $(this).data('nama-file')
+
+            Swal.fire({
+                title: `Anda yakin ingin mengunduh dokumen portofolio ini?`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Submit",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `/download/portofolio/${namaFile}`
+                }
+            })
+        })
 
         $(document).on('click', '.btn-action-porto', function () {
             const portofolioID = $(this).data('portofolio-id')

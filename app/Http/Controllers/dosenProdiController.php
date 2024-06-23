@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Exception;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -110,7 +111,13 @@ class dosenProdiController extends Controller
             }
 
             $decryptedCode = Crypt::decryptString($code);
-            $data = DB::table('skpi')->where('NO_SKPI', $decryptedCode)->first();
+            $data = DB::table('skpi')->join('mahasiswa', 'skpi.ID_MAHASISWA', 'mahasiswa.ID')->where('NO_SKPI', $decryptedCode)->first();
+
+            $tglMasuk = new DateTime($data->TANGGAL_MASUK);
+            $tglLulus = new DateTime($data->TANGGAL_LULUS);
+            $interval = $tglMasuk->diff($tglLulus);
+
+            $data->LAMA_STUDI = "$interval->y tahun $interval->m bulan";
 
             if (!$data) {
                 throw new DecryptException('Data tidak ditemukan!');
