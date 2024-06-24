@@ -1,10 +1,11 @@
 <?php
 
+use Mews\Captcha\Facades\Captcha;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PortofolioController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\dosenProdiController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PortofolioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ Route::post('/action-login', [UserController::class, 'login'])->name('action-log
 Route::get('/register', [UserController::class, 'registerView'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('action-register');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('/refresh-captcha', function () {
+    return response()->json(['url' => Captcha::src('default')]);
+});
 
 Route::middleware('custom-login')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');

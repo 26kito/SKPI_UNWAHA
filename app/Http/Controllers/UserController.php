@@ -44,17 +44,17 @@ class UserController extends Controller
             if ($validate->fails()) {
                 throw new Exception($validate->errors()->first());
             }
-    
+
             $user = DB::table('user')->where('USERNAME', $usn)->first();
-    
+
             if (!$user || !Hash::check($password, $user->PASSWORD)) {
                 throw new Exception('Username atau password salah!');
             }
-    
+
             $encryptedUserID = encrypt($user->ID);
             Session::put('isLogin', $encryptedUserID);
             Session::put('user', $user);
-    
+
             return redirect()->intended(route('home'));
         } catch (Exception $e) {
             return redirect()->back()->with(['message' => $e->getMessage()])->withErrors($e->getMessage())->withInput();
