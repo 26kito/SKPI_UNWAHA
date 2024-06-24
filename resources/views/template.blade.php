@@ -69,7 +69,7 @@
                             </li>
                         @endif --}}
                         @if (Helper::authUser()->ROLE == 'ADMIN')
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
@@ -77,7 +77,7 @@
                                         <i class="right fas"></i>
                                     </p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="{{ route('list-mahasiswa') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-mahasiswa', 'add-mahasiswa', 'add-mahasiswa-bulk']) ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
@@ -88,7 +88,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('list-kualifikasi') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-kualifikasi', 'add-kualifikasi']) ? 'active' : '' }}" class="nav-link">
+                                <a href="{{ route('list-kualifikasi') }}" class="nav-link {{ in_array(request()->route()->getName(), ['list-kualifikasi', 'add-kualifikasi', 'edit-kualifikasi']) ? 'active' : '' }}" class="nav-link">
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
                                         Data Kualifikasi
