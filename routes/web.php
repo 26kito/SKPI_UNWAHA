@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\dosenProdiController;
+use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\PortofolioController;
 
 /*
@@ -40,16 +41,23 @@ Route::middleware('custom-login')->group(function () {
     Route::get('/profile/change', [UserController::class, 'editPassView'])->name('edit-profile');
     Route::post('/profile/change', [UserController::class, 'updatePass'])->name('update-profile');
 
+    // Mahasiswa
     Route::get('/list/mahasiswa', [dosenProdiController::class, 'listMahasiswa'])->name('list-mahasiswa');
     Route::get('/get-data/mahasiswa', [dosenProdiController::class, 'getDataMahasiswa']);
     Route::post('/update/mahasiswa/status', [dosenProdiController::class, 'updateStatusMahasiswa']);
     Route::get('/add/mahasiswa', [dosenProdiController::class, 'addMahasiswaView'])->name('add-mahasiswa');
     Route::get('/add/mahasiswa/bulk', [dosenProdiController::class, 'addMahasiswaBulkView'])->name('add-mahasiswa-bulk');
     Route::post('/add/mahasiswa/bulk', [UserController::class, 'registerBulk'])->name('action-register-bulk');
-    Route::get('/list/kualifikasi', [dosenProdiController::class, 'listKualifikasi'])->name('list-kualifikasi');
-    Route::get('/get-data/kualifikasi', [dosenProdiController::class, 'getDataKualifikasi']);
-    Route::get('/add/kualifikasi', [dosenProdiController::class, 'addKualifikasiView'])->name('add-kualifikasi');
-    Route::post('/add/kualifikasi', [dosenProdiController::class, 'insertKualifikasi'])->name('insert-kualifikasi');
+
+    // Kualifikasi
+    Route::get('/list/kualifikasi', [KualifikasiController::class, 'listKualifikasi'])->name('list-kualifikasi');
+    Route::get('/get-data/kualifikasi', [KualifikasiController::class, 'getDataKualifikasi']);
+    Route::get('/add/kualifikasi', [KualifikasiController::class, 'addKualifikasiView'])->name('add-kualifikasi');
+    Route::post('/add/kualifikasi', [KualifikasiController::class, 'insertKualifikasi'])->name('insert-kualifikasi');
+    Route::get('/edit/kualifikasi/{id}', [KualifikasiController::class, 'editKualifikasiView'])->name('edit-kualifikasi');
+    Route::post('/update/kualifikasi/{id}', [KualifikasiController::class, 'updateKualifikasi'])->name('update-kualifikasi');
+    Route::post('/delete/kualifikasi', [KualifikasiController::class, 'deleteKualifikasi']);
+
     Route::get('/list/portofolio', [dosenProdiController::class, 'listPortofolio'])->name('list-portofolio');
     Route::get('/list/skpi', [dosenProdiController::class, 'listSkpi'])->name('list-skpi');
     Route::get('/validate/skpi', [dosenProdiController::class, 'validateSkpi'])->name('validate-skpi');

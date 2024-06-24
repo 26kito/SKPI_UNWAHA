@@ -68,8 +68,8 @@
                                 <td>${d.PENJELASAN_KUALIFIKASI}</td>
                                 <td>${(d.SUB_PENJELASAN) ? d.SUB_PENJELASAN : ''}</td>
                                 <td style="display: flex; align-items: center; gap: 5px; height: 80px">
-                                    <a href="#" class="btn btn-sm bg-warning"><i class="fa fa-pen"></i></a>
-                                    <a href="#" class="btn btn-sm bg-danger"><i class="fa fa-trash"></i></a>
+                                    <a href="/edit/kualifikasi/${d.ID}" class="btn btn-sm bg-warning"><i class="fa fa-pen"></i></a>
+                                    <a href="#" class="btn btn-sm bg-danger delete-kualifikasi" role="button" data-id-kualifikasi="${d.ID}"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         `
@@ -78,9 +78,38 @@
                     })
 
                     $('#listKualifikasiContent').html(table)
-                    $('#listKualifikasi').DataTable({'pageLength': 15});
+                    $('#listKualifikasi').DataTable();
                 }
             })
         }
+
+        $(document).on('click', '.delete-kualifikasi', function () {
+            const id = $(this).data('id-kualifikasi')
+            const csrfToken = '{{ csrf_token() }}';
+
+            Swal.fire({
+                title: `Anda yakin ingin menghapus kualifikasi ini?`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Submit",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/delete/kualifikasi',
+                        data: {_token: csrfToken, id: id},
+                        success: function(res) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: res.status.toUpperCase(),
+                                text: res.message,
+                            });
+        
+                            fetchData()
+                        }
+                    })
+                }
+            })
+        })
     })
 </script>
