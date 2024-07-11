@@ -26,20 +26,22 @@
                 <i class="fa fa-plus"></i>
                 Tambah Data Kualifikasi</a>
         </div>
-        <table id="listKualifikasi" class="display">
-            <thead>
-                <tr>
-                    <th class="text-center">No.</th>
-                    <th>Nama Program Studi</th>
-                    <th>Judul Kualifikasi</th>
-                    <th>Penjelasan Kualifikasi</th>
-                    <th>Sub Penjelasan Kualifikasi</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="listKualifikasiContent">
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="listKualifikasi" class="display table">
+                <thead>
+                    <tr>
+                        <th class="text-center">No.</th>
+                        <th>Nama Program Studi</th>
+                        <th>Judul Kualifikasi</th>
+                        <th>Penjelasan Kualifikasi</th>
+                        <th>Sub Penjelasan Kualifikasi</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="listKualifikasiContent">
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection
