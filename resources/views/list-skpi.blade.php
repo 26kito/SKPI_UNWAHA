@@ -21,20 +21,22 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <table id="listSkpi" class="display">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Nomor SKPI</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="listSkpiContent">
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="listSkpi" class="display table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nomor SKPI</th>
+                        <th>Nama Mahasiswa</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="listSkpiContent">
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

@@ -15,21 +15,25 @@
 @endsection
 
 @section('content')
-<div class="card" style="width: 1400px; margin: 0 auto;">
-    <h5 class="card-header">Masukkan Encryption Code yang anda scan dari QR Code!</h5>
-    <div class="card-body">
-        <form action="{{ route('action-validate-skpi') }}" method="POST">
-            @csrf
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <h5 class="card-header">Masukkan Encryption Code yang anda scan dari QR Code!</h5>
+                <div class="card-body">
+                    <form action="{{ route('action-validate-skpi') }}" method="POST">
+                        @csrf
 
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="encryptionCode">Encryption Code</label>
-                    <textarea name="encryptionCode" id="encryptionCode" class="form-control" rows="2" placeholder="Encryption Code"></textarea>
+                        <div class="form-group">
+                            <label for="encryptionCode">Encryption Code</label>
+                            <textarea name="encryptionCode" id="encryptionCode" class="form-control" rows="2"
+                                placeholder="Encryption Code"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
                 </div>
             </div>
-            <br>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
+        </div>
     </div>
 </div>
 @endsection

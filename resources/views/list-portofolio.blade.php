@@ -21,24 +21,26 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <table id="listPortofolio" class="display">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>Kategori Portofolio</th>
-                    <th>Nama Portofolio</th>
-                    <th>Kesesuaian</th>
-                    <th>Tanggal Portofolio</th>
-                    <th>No. Dokumen Portofolio</th>
-                    <th>Dokumen</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="listPortofolioContent">
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="listPortofolio" class="display table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nama Mahasiswa</th>
+                        <th>Kategori Portofolio</th>
+                        <th>Nama Portofolio</th>
+                        <th>Kesesuaian</th>
+                        <th>Tanggal Portofolio</th>
+                        <th>No. Dokumen Portofolio</th>
+                        <th>Dokumen</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="listPortofolioContent">
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

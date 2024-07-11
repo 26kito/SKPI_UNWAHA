@@ -29,25 +29,27 @@
                 <i class="fa fa-plus"></i>
                 Tambah Data Mahasiswa Bulk</a>
         </div>
-        <table id="listMahasiswa" class="display">
-            <thead>
-                <tr>
-                    <th class="text-center">No.</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>NIM</th>
-                    <th>Nama Prodi</th>
-                    <th>Tempat & Tanggal Lahir</th>
-                    <th>Tanggal Masuk</th>
-                    <th>Tanggal Lulus</th>
-                    <th>No. Ijazah</th>
-                    <th>Gelar</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="listMahasiswaContent">
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="listMahasiswa" class="display table">
+                <thead>
+                    <tr>
+                        <th class="text-center">No.</th>
+                        <th>Nama Mahasiswa</th>
+                        <th>NIM</th>
+                        <th>Nama Prodi</th>
+                        <th>Tempat & Tanggal Lahir</th>
+                        <th>Tanggal Masuk</th>
+                        <th>Tanggal Lulus</th>
+                        <th>No. Ijazah</th>
+                        <th>Gelar</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="listMahasiswaContent">
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection
